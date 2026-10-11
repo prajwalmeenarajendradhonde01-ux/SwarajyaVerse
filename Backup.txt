@@ -1,0 +1,257 @@
+
+from flask import Flask, request, redirect, url_for, render_template_string
+import json
+import os
+import uuid
+from html import escape
+
+app = Flask(__name__)
+DATA_FILE = "human_checker_data.json"
+
+STYLE = """
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 24px 14px; min-height: 100vh;
+  font-family: Arial, sans-serif; color: #fff;
+  background: radial-gradient(ellipse at top, #29204c, #080b18 75%);
+}
+.card {
+  max-width: 760px; margin: 20px auto; padding: 26px;
+  border: 1px solid #65558d; border-radius: 20px;
+  background: rgba(20,23,48,.97); box-shadow: 0 0 30px #211b40;
+}
+h1,h2 { color: #f4d28b; }
+p { color: #d6d8e8; line-height: 1.6; }
+input,textarea,select {
+  width: 100%; padding: 12px; margin: 7px 0 14px;
+  border-radius: 8px; border: 1px solid #5a5878;
+  background: #11162b; color: white; font-size: 15px;
+}
+button,.button {
+  display: inline-block; padding: 12px 18px; margin: 5px 3px;
+  border: 0; border-radius: 9px; background: #f4d28b;
+  color: #171329; font-weight: bold; cursor: pointer;
+  text-decoration: none;
+}
+label { display: block; margin: 8px 0; color: #e4e5f1; }
+.question { padding: 16px; margin: 16px 0; border: 1px solid #484667; border-radius: 12px; }
+.option-image { display: block; max-width: 150px; max-height: 120px; object-fit: cover; border-radius: 8px; margin: 8px 0; }
+.small { font-size: 13px; color: #aeb5cf; }
+a { color: #f4d28b; }
+</style>
+"""
+
+def load_data():
+    if not os.path.exists(DATA_FILE):
+        return {"quizzes": {}}
+    try:
+        with open(DATA_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {"quizzes": {}}
+
+def save_data(data):
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+def page(title, content):
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{escape(title)} | Human Checker</title>{STYLE}</head>
+<body><main class="card">{content}</main></body></html>"""
+
+@app.route("/")
+def home():
+    return page("Human Checker", """
+      <div style="text-align:center">
+        <h1>HUMAN CHECKER</h1>
+        <p>Discover who really knows you!</p>
+        <a class="button" href="/make">MAKE A QUIZ</a>
+        <a class="button" href="/play">PLAY A QUIZ</a>
+        <p class="small">SwarajyaVerse Studio</p>
+      </div>
+    """)
+
+@app.route("/make", methods=["GET", "POST"])
+def make_quiz():
+    if request.method == "GET":
+        return page("Make a Quiz", """
+          <h1>Create a Quiz About Yourself</h1>
+          <p>Enter your name, write questions, and select the correct answer for each one.</p>
+          <form method="post">
+            <label>Your name</label>
+            <input name="creator" maxlength="60" required>
+            <div id="questions"></div>
+            <button type="button" onclick="addQuestion()">+ Add Question</button>
+            <button type="submit">SAVE & TEST</button>
+          </form>
+          <p class="small">For image choices, paste a public image URL. Never share private photos.</p>
+          <script>
+          let count = 0;
+          function addQuestion() {
+            if (count >= 20) { alert("Maximum 20 questions."); return; }
+            count++;
+            let n = count;
+            let section = document.createElement("section");
+            section.className = "question";
+            section.innerHTML = `
+              <h2>Question ${n}</h2>
+              <label>Question</label>
+              <input name="q${n}" maxlength="300" required placeholder="Example: What is my favourite subject?">
+              ${[1,2,3,4].map(i => `
+                <label>Option ${i} text</label>
+                <input name="q${n}_o${i}" maxlength="200" required>
+                <label>Option ${i} image URL (optional)</label>
+                <input name="q${n}_img${i}" type="url" placeholder="https://...">
+              `).join("")}
+              <label>Correct answer</label>
+              <select name="q${n}_correct">
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+              </select>`;
+            document.getElementById("questions").appendChild(section);
+          }
+          addQuestion();
+          </script>
+          <p><a href="/">Back home</a></p>
+        """)
+
+    creator = request.form.get("creator", "").strip()
+    questions = []
+
+    for n in range(1, 21):
+        text = request.form.get(f"q{n}", "").strip()
+        if not text:
+            continue
+        options = []
+        for i in range(1, 5):
+            options.append({
+                "text": request.form.get(f"q{n}_o{i}", "").strip(),
+                "image": request.form.get(f"q{n}_img{i}", "").strip()
+            })
+        try:
+            correct = int(request.form.get(f"q{n}_correct", "1"))
+        except ValueError:
+            correct = 1
+        if correct not in (1, 2, 3, 4):
+            correct = 1
+        questions.append({"text": text, "options": options, "correct": correct})
+
+    if not creator or not questions:
+        return page("Missing information", "<h1>Please add your name and at least one question.</h1><a href='/make'>Try again</a>"), 400
+
+    quiz_id = uuid.uuid4().hex[:10]
+    data = load_data()
+    data["quizzes"][quiz_id] = {
+        "id": quiz_id, "creator": creator,
+        "questions": questions, "scores": []
+    }
+    save_data(data)
+    return redirect(url_for("test_quiz", quiz_id=quiz_id))
+
+@app.route("/test/<quiz_id>", methods=["GET", "POST"])
+def test_quiz(quiz_id):
+    data = load_data()
+    quiz = data["quizzes"].get(quiz_id)
+    if not quiz:
+        return page("Quiz not found", "<h1>Quiz not found</h1><p>Check the quiz link and try again.</p><a href='/play'>Play</a>"), 404
+
+    if request.method == "POST":
+        player = request.form.get("player", "").strip()
+        if not player:
+            return page("Name needed", "<h1>Please enter your name.</h1><a href='javascript:history.back()'>Go back</a>"), 400
+        total = len(quiz["questions"])
+        correct_count = 0
+        for index, q in enumerate(quiz["questions"]):
+            try:
+                answer = int(request.form.get(f"a{index}", "0"))
+            except ValueError:
+                answer = 0
+            if answer == q["correct"]:
+                correct_count += 1
+
+        score = round(correct_count * 100 / total) if total else 0
+        quiz["scores"].append({
+            "player": player[:60], "score": score,
+            "correct": correct_count, "total": total
+        })
+        save_data(data)
+        return page("Your Result", f"""
+          <h1>Quiz Complete!</h1>
+          <h2 style="font-size:44px">{score} / 100</h2>
+          <p>{correct_count} correct out of {total} questions.</p>
+          <p>Your percentage: <strong>{score}%</strong></p>
+          <a class="button" href="/leaderboard/{escape(quiz_id)}">LEADERBOARD</a>
+          <a class="button" href="/">LEAVE</a>
+        """)
+
+    questions_html = ""
+    for index, q in enumerate(quiz["questions"]):
+        options_html = ""
+        for number, opt in enumerate(q["options"], 1):
+            image_html = ""
+            if opt["image"].startswith(("https://", "http://")):
+                image_html = f'<img class="option-image" src="{escape(opt["image"], quote=True)}" alt="Answer option">'
+            options_html += f"""
+              <label><input style="width:auto" type="radio" name="a{index}" value="{number}" required>
+              {escape(opt["text"])}{image_html}</label>"""
+        questions_html += f'<section class="question"><h2>{index+1}. {escape(q["text"])}</h2>{options_html}</section>'
+
+    content = f"""
+      <h1>How well do you know {escape(quiz["creator"])}?</h1>
+      <form method="post">
+        <label>Your name</label>
+        <input name="player" maxlength="60" required placeholder="Enter your name">
+        {questions_html}
+        <button type="submit">SUBMIT ANSWERS</button>
+      </form>
+    """
+    return page("Play Quiz", content)
+
+@app.route("/play", methods=["GET", "POST"])
+def play_quiz():
+    if request.method == "POST":
+        value = request.form.get("quiz_link", "").strip().rstrip("/")
+        quiz_id = value.rsplit("/", 1)[-1]
+        if not quiz_id or "/" in quiz_id:
+            return page("Invalid link", "<h1>Please enter a valid quiz link or ID.</h1><a href='/play'>Try again</a>"), 400
+        return redirect(url_for("test_quiz", quiz_id=quiz_id))
+
+    return page("Play a Quiz", """
+      <h1>PLAY A QUIZ</h1>
+      <p>Paste the quiz link or quiz ID shared by a friend.</p>
+      <form method="post">
+        <label>Quiz link or ID</label>
+        <input name="quiz_link" required placeholder="Paste link or ID here">
+        <button type="submit">START QUIZ</button>
+      </form>
+      <a href="/">Back home</a>
+    """)
+
+@app.route("/leaderboard/<quiz_id>")
+def leaderboard(quiz_id):
+    quiz = load_data()["quizzes"].get(quiz_id)
+    if not quiz:
+        return page("Not found", "<h1>Quiz not found</h1>"), 404
+
+    scores = sorted(quiz["scores"], key=lambda item: item["score"], reverse=True)
+    rows = ""
+    for rank, result in enumerate(scores, 1):
+        rows += f"<tr><td>{rank}</td><td>{escape(result['player'])}</td><td>{result['score']}%</td></tr>"
+
+    return page("Leaderboard", f"""
+      <h1>Leaderboard</h1>
+      <p>Quiz by {escape(quiz["creator"])}</p>
+      <table style="width:100%;text-align:left;border-spacing:8px">
+        <tr><th>Rank</th><th>Player</th><th>Score</th></tr>{rows}
+      </table>
+      <a class="button" href="/test/{escape(quiz_id)}">Play again</a>
+      <a class="button" href="/">Leave</a>
+    """)
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's Special Today? | SwarajyaVerse</title>
+
+<style>
+:root {
+    --bg: #f2f7ff;
+    --card: #ffffff;
+    --text: #172b4d;
+    --blue: #155eef;
+    --muted: #5b6b82;
+    --border: #dbe5f5;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+header {
+    background: linear-gradient(120deg, #092c70, #1769e0);
+    color: white;
+    padding: 25px 18px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: clamp(28px, 5vw, 42px);
+}
+
+header p {
+    margin: 8px 0 0;
+    color: #e0ebff;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--blue);
+    font-weight: bold;
+    padding: 8px 13px;
+    border-radius: 8px;
+}
+
+nav a:hover {
+    background: #e8f0ff;
+}
+
+main {
+    width: min(1050px, 92%);
+    margin: 25px auto 50px;
+}
+
+.date-card, .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 20px rgba(20, 50, 100, 0.06);
+}
+
+.date-card {
+    text-align: center;
+}
+
+#todayDate {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--blue);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.tabs, .subtabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0 20px;
+}
+
+button {
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: #edf3ff;
+    color: #12366f;
+    padding: 11px 17px;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+button.active, button:hover {
+    background: var(--blue);
+    color: white;
+    border-color: var(--blue);
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.content-box {
+    background: #f8faff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 17px;
+    margin: 12px 0;
+}
+
+.content-box h3 {
+    margin-top: 0;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+ul {
+    padding-left: 22px;
+}
+
+li {
+    margin: 8px 0;
+}
+
+a {
+    color: var(--blue);
+}
+
+footer {
+    text-align: center;
+    padding: 24px;
+    background: #092c70;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .panel, .date-card {
+        padding: 16px;
+    }
+
+    button {
+        flex: 1 1 auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>What's Special Today?</h1>
+    <p>Discover today's news, history, festivals and observances.</p>
+</header>
+
+<nav>
+    <a href="index.html">← Back to Home</a>
+    <a href="#news">News Today</a>
+    <a href="#special">What's Special Today?</a>
+</nav>
+
+<main>
+    <section class="date-card">
+        <h2>Today's Date</h2>
+        <div id="todayDate"></div>
+        <p class="muted">Explore events from India, Maharashtra and around the world.</p>
+    </section>
+
+    <section class="panel" id="news">
+        <h2>📰 News Today</h2>
+        <p class="muted">Choose the news section you want to explore.</p>
+
+        <div class="tabs">
+            <button class="active" data-main="news" data-target="newsNational">National — India</button>
+            <button data-main="news" data-target="newsInternational">International — World</button>
+        </div>
+
+        <div id="newsNational" class="section active">
+            <div class="content-box">
+                <h3>🇮🇳 India News</h3>
+                <p>Read the latest national headlines from trusted news sources.</p>
+                <ul>
+                    <li><a href="https://news.google.com/home?hl=en-IN&gl=IN&ceid=IN:en" target="_blank" rel="noopener">Latest India news — Google News</a></li>
+                    <li><a href="https://www.pib.gov.in/" target="_blank" rel="noopener">Government announcements — PIB</a></li>
+                    <li><a href="https://www.india.gov.in/" target="_blank" rel="noopener">National information — India.gov.in</a></li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h3>🚩 Maharashtra News</h3>
+                <p>Explore Maharashtra news, state announcements and local developments.</p>
+                <ul>
+                    <li><a href="https://news.google.com/search?q=Maharashtra&hl=en-IN&gl=IN&ceid=IN:en" target="_blank" rel="noopener">Latest Maharashtra headlines</a></li>
+                    <li><a href="https://www.maharashtra.gov.in/" target="_blank" rel="noopener">Maharashtra Government official website</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="newsInternational" class="section">
+            <div class="content-box">
+                <h3>🌍 World News</h3>
+                <p>Explore international headlines and important global developments.</p>
+                <ul>
+                    <li><a href="https://news.google.com/home?hl=en" target="_blank" rel="noopener">Latest world news — Google News</a></li>
+                    <li><a href="https://news.un.org/" target="_blank" rel="noopener">United Nations News</a></li>
+                    <li><a href="https://www.bbc.com/news/world" target="_blank" rel="noopener">BBC World News</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel" id="special">
+        <h2>📅 What's Special Today?</h2>
+        <p class="muted">Explore public holidays, festivals, historical events and international observances.</p>
+
+        <div class="tabs">
+            <button class="active" data-main="special" data-target="specialNational">National — India</button>
+            <button data-main="special" data-target="specialInternational">International — World</button>
+        </div>
+
+        <div id="specialNational" class="section active">
+            <div class="content-box">
+                <h3>🇮🇳 India and Maharashtra</h3>
+                <p id="indiaHoliday">Checking India's public holiday information...</p>
+                <p id="mahaDay">Check the official Maharashtra calendar for state-specific observances and holidays.</p>
+                <ul>
+                    <li><a href="https://www.maharashtra.gov.in/" target="_blank" rel="noopener">Maharashtra Government</a></li>
+                    <li><a href="https://www.india.gov.in/" target="_blank" rel="noopener">India National Portal</a></li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h3>📜 On This Day in History</h3>
+                <p>Discover historical events that happened on today's date.</p>
+                <a id="historyLink" href="#" target="_blank" rel="noopener">Explore today's historical events ↗</a>
+            </div>
+        </div>
+
+        <div id="specialInternational" class="section">
+            <div class="content-box">
+                <h3>🌎 International Observances</h3>
+                <p id="worldDay">Look up today's international observances using the links below.</p>
+                <ul>
+                    <li><a href="https://www.un.org/en/observances" target="_blank" rel="noopener">United Nations International Observances</a></li>
+                    <li><a href="https://www.timeanddate.com/holidays/" target="_blank" rel="noopener">Worldwide holidays and observances</a></li>
+                    <li><a href="https://www.google.com/search?q=international+observances+today" target="_blank" rel="noopener">Search international observances for today</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>✨ Keep Exploring</h2>
+        <p>Every day is an opportunity to learn something new about our country and the world.</p>
+        <p><strong>Learn. Discover. Respect. Inspire.</strong></p>
+    </section>
+</main>
+
+<footer>
+    <p>© <span id="year"></span> SwarajyaVerse Studio</p>
+    <p>Created by Prajwal Dhonde</p>
+</footer>
+
+<script>
+"use strict";
+
+// Show today's date
+const now = new Date();
+
+document.getElementById("todayDate").textContent =
+    now.toLocaleDateString("en-IN", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+
+document.getElementById("year").textContent = now.getFullYear();
+
+// Connect tabs to their content sections
+document.querySelectorAll("button[data-main]").forEach(function(button) {
+    button.addEventListener("click", function() {
+        const group = button.dataset.main;
+        const targetId = button.dataset.target;
+
+        document.querySelectorAll('button[data-main="' + group + '"]')
+            .forEach(function(item) {
+                item.classList.remove("active");
+            });
+
+        document.querySelectorAll("#" + group + " .section")
+            .forEach(function(section) {
+                section.classList.remove("active");
+            });
+
+        button.classList.add("active");
+        document.getElementById(targetId).classList.add("active");
+    });
+});
+
+// Link to historical events for today's date
+const monthDay = String(now.getMonth() + 1).padStart(2, "0") +
+                 "/" + String(now.getDate()).padStart(2, "0");
+
+document.getElementById("historyLink").href =
+    "https://www.google.com/search?q=historical+events+on+" +
+    encodeURIComponent(now.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric"
+    }));
+
+// Load India's public holiday data when internet is available
+fetch("https://date.nager.at/api/v3/PublicHolidays/" +
+      now.getFullYear() + "/IN")
+    .then(function(response) {
+        if (!response.ok) throw new Error("Holiday service unavailable");
+        return response.json();
+    })
+    .then(function(holidays) {
+        const today = now.getFullYear() + "-" +
+            String(now.getMonth() + 1).padStart(2, "0") + "-" +
+            String(now.getDate()).padStart(2, "0");
+
+        const matches = holidays.filter(function(item) {
+            return item.date === today;
+        });
+
+        const output = document.getElementById("indiaHoliday");
+
+        if (matches.length) {
+            output.textContent = "Public holiday today: " +
+                matches.map(function(item) {
+                    return item.localName || item.name;
+                }).join(", ") + ".";
+        } else {
+            output.textContent =
+                "No India-wide public holiday was listed for today in this data source. State, regional and religious observances may differ.";
+        }
+    })
+    .catch(function() {
+        document.getElementById("indiaHoliday").textContent =
+            "Holiday information could not load. Check the official India and Maharashtra links below.";
+    });
+
+// Keep a simple date-based reminder for international observances.
+// This is not a complete calendar.
+const internationalDays = {
+    "01-01": "New Year's Day is observed in many countries.",
+    "02-21": "International Mother Language Day.",
+    "03-08": "International Women's Day.",
+    "04-22": "International Mother Earth Day.",
+    "05-01": "International Workers' Day is observed in many places.",
+    "06-05": "World Environment Day.",
+    "06-21": "International Day of Yoga.",
+    "09-21": "International Day of Peace.",
+    "10-24": "United Nations Day.",
+    "12-10": "Human Rights Day."
+};
+
+const key = String(now.getMonth() + 1).padStart(2, "0") +
+            "-" + String(now.getDate()).padStart(2, "0");
+
+document.getElementById("worldDay").textContent =
+    internationalDays[key] ||
+    "No special observance is listed in this small built-in calendar for today. Use the official observance links for a fuller list.";
+</script>
+
+</body>
+</html>

@@ -1,0 +1,723 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Games Zone | SwarajyaVerse Studio</title>
+
+<style>
+:root {
+    --gold: #ffd166;
+    --cyan: #66e5ff;
+    --text: #ffffff;
+    --panel: rgba(17, 19, 43, 0.91);
+    --border: rgba(102, 229, 255, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(ellipse at top, #29205c 0%, transparent 55%),
+        linear-gradient(135deg, #080b20, #10162d 60%, #090b19);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 18px 6%;
+    background: rgba(5, 7, 20, 0.85);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    color: var(--gold);
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-decoration: none;
+}
+
+.back {
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+}
+
+.back:hover {
+    color: var(--cyan);
+}
+
+.hero {
+    text-align: center;
+    padding: 65px 20px 40px;
+}
+
+.eyebrow {
+    color: var(--cyan);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+.hero h1 {
+    margin: 20px 0;
+    font-size: clamp(38px, 7vw, 70px);
+    color: var(--gold);
+    text-shadow: 0 0 25px rgba(255, 209, 102, 0.2);
+}
+
+.hero p {
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.8;
+    color: #dedff5;
+}
+
+main {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+    padding-bottom: 65px;
+}
+
+.game-menu {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.menu-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 23px;
+    text-align: left;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+.menu-card .emoji {
+    display: block;
+    font-size: 34px;
+    margin-bottom: 14px;
+}
+
+.menu-card h2 {
+    font-size: 19px;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.menu-card p {
+    color: #dedff5;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.game-panel {
+    display: none;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: clamp(20px, 5vw, 38px);
+    margin-top: 25px;
+    animation: appear 0.35s ease;
+}
+
+.game-panel.active {
+    display: block;
+}
+
+.game-panel h2 {
+    color: var(--gold);
+    font-size: clamp(25px, 4vw, 35px);
+    margin-bottom: 12px;
+}
+
+.description {
+    color: #dedff5;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+input, button {
+    font: inherit;
+}
+
+input[type="number"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0b1028;
+    color: white;
+    margin: 8px 0 15px;
+}
+
+.action {
+    display: inline-block;
+    padding: 12px 19px;
+    border: none;
+    border-radius: 10px;
+    background: var(--gold);
+    color: #11152b;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px 4px 5px 0;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.action:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+.action.secondary {
+    background: #273354;
+    border: 1px solid var(--border);
+    color: white;
+}
+
+.status {
+    min-height: 28px;
+    margin: 16px 0;
+    color: var(--cyan);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 100px));
+    gap: 8px;
+    margin: 22px 0;
+}
+
+.square {
+    width: 100%;
+    aspect-ratio: 1;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #101831;
+    color: var(--cyan);
+    font-size: clamp(30px, 7vw, 42px);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.square:disabled {
+    cursor: default;
+    opacity: 0.95;
+}
+
+.square:hover:not(:disabled) {
+    border-color: var(--gold);
+}
+
+.memory-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 85px));
+    gap: 9px;
+    margin: 22px 0;
+}
+
+.memory-card {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #20264b;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.memory-card:hover:not(:disabled) {
+    border-color: var(--gold);
+}
+
+.memory-card:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+.score {
+    color: var(--gold);
+    margin: 12px 0;
+    line-height: 1.8;
+}
+
+footer {
+    text-align: center;
+    padding: 24px 15px;
+    color: #d8d9ee;
+    background: rgba(5, 7, 20, 0.85);
+    border-top: 1px solid var(--border);
+    line-height: 1.8;
+    font-size: 13px;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 750px) {
+    .game-menu {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        justify-content: center;
+    }
+
+    .game-menu {
+        grid-template-columns: 1fr;
+    }
+
+    .memory-board {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="brand">SV | SWARAJYAVERSE</a>
+    <a href="universe.html" class="back">← Explore Universe</a>
+</header>
+
+<section class="hero">
+    <p class="eyebrow">PLAY • THINK • DISCOVER</p>
+    <h1>🎮 Games Zone</h1>
+    <p>
+        Welcome to your gaming universe!
+        Challenge your brain, test your memory and have fun
+        with these mini-games.
+    </p>
+</section>
+
+<main>
+    <section class="game-menu" aria-label="Choose a game">
+
+        <button class="menu-card" type="button"
+                onclick="openGame('guess')">
+            <span class="emoji">🔢</span>
+            <h2>Number Guess</h2>
+            <p>Can you discover the secret number from 1 to 100?</p>
+        </button>
+
+        <button class="menu-card" type="button"
+                onclick="openGame('tic')">
+            <span class="emoji">❎</span>
+            <h2>Tic-Tac-Toe</h2>
+            <p>Challenge a friend to this classic two-player game.</p>
+        </button>
+
+        <button class="menu-card" type="button"
+                onclick="openGame('memory')">
+            <span class="emoji">🧠</span>
+            <h2>Memory Match</h2>
+            <p>Find all the matching emoji pairs.</p>
+        </button>
+
+    </section>
+
+    <!-- NUMBER GUESS GAME -->
+    <section class="game-panel" id="guess">
+        <h2>🔢 Number Guess Challenge</h2>
+        <p class="description">
+            I have selected a secret number between 1 and 100.
+            Enter your guess and I will tell you whether it is too
+            high or too low!
+        </p>
+
+        <label for="guessInput">Your number:</label><br>
+        <input id="guessInput" type="number"
+               min="1" max="100" placeholder="Enter 1–100">
+
+        <br>
+        <button class="action" type="button" onclick="makeGuess()">
+            Check Guess
+        </button>
+        <button class="action secondary" type="button"
+                onclick="resetGuess()">
+            New Game
+        </button>
+
+        <p class="status" id="guessStatus" aria-live="polite">
+            Make your first guess!
+        </p>
+        <p class="score" id="guessScore">Attempts: 0</p>
+    </section>
+
+    <!-- TIC TAC TOE GAME -->
+    <section class="game-panel" id="tic">
+        <h2>❎ Tic-Tac-Toe</h2>
+        <p class="description">
+            Play with a friend on the same device.
+            Player X goes first, followed by player O.
+        </p>
+
+        <p class="score" id="ticTurn" aria-live="polite">
+            Player X's turn
+        </p>
+
+        <div class="board" id="ticBoard">
+            <button class="square" data-index="0" aria-label="Cell 1"></button>
+            <button class="square" data-index="1" aria-label="Cell 2"></button>
+            <button class="square" data-index="2" aria-label="Cell 3"></button>
+            <button class="square" data-index="3" aria-label="Cell 4"></button>
+            <button class="square" data-index="4" aria-label="Cell 5"></button>
+            <button class="square" data-index="5" aria-label="Cell 6"></button>
+            <button class="square" data-index="6" aria-label="Cell 7"></button>
+            <button class="square" data-index="7" aria-label="Cell 8"></button>
+            <button class="square" data-index="8" aria-label="Cell 9"></button>
+        </div>
+
+        <button class="action" type="button" onclick="resetTic()">
+            Restart Game
+        </button>
+    </section>
+
+    <!-- MEMORY MATCH GAME -->
+    <section class="game-panel" id="memory">
+        <h2>🧠 Memory Match</h2>
+        <p class="description">
+            Flip two cards at a time. Find all eight matching pairs
+            using as few moves as you can.
+        </p>
+
+        <p class="score" id="memoryScore" aria-live="polite">
+            Moves: 0 · Pairs: 0/8
+        </p>
+
+        <div class="memory-board" id="memoryBoard"></div>
+
+        <button class="action" type="button" onclick="startMemory()">
+            Restart Memory Game
+        </button>
+
+        <p class="status" id="memoryStatus" aria-live="polite">
+            Find your first pair!
+        </p>
+    </section>
+</main>
+
+<footer>
+    <strong>SwarajyaVerse Studio</strong><br>
+    Rooted in Heritage. Built for Tomorrow.<br>
+    Made by Prajwal Meena Rajendra Dhonde
+</footer>
+
+<script>
+/* SWITCH BETWEEN THE THREE GAMES */
+
+function openGame(gameId) {
+    document.querySelectorAll(".game-panel").forEach(function(panel) {
+        panel.classList.remove("active");
+    });
+
+    document.getElementById(gameId).classList.add("active");
+
+    document.getElementById(gameId).scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+/* NUMBER GUESS GAME */
+
+let secretNumber = randomNumber();
+let attempts = 0;
+let guessFinished = false;
+
+function randomNumber() {
+    return Math.floor(Math.random() * 100) + 1;
+}
+
+function makeGuess() {
+    if (guessFinished) {
+        document.getElementById("guessStatus").textContent =
+            "Start a New Game to play again.";
+        return;
+    }
+
+    const input = document.getElementById("guessInput");
+    const value = input.valueAsNumber;
+    const status = document.getElementById("guessStatus");
+
+    if (input.value.trim() === "" ||
+        !Number.isInteger(value) || value < 1 || value > 100) {
+        status.textContent = "Please enter a whole number from 1 to 100.";
+        return;
+    }
+
+    attempts++;
+
+    if (value === secretNumber) {
+        status.textContent =
+            "🎉 Correct! You found the number " + secretNumber + "!";
+        guessFinished = true;
+    } else if (value < secretNumber) {
+        status.textContent = "⬆ Too low! Try a higher number.";
+    } else {
+        status.textContent = "⬇ Too high! Try a lower number.";
+    }
+
+    document.getElementById("guessScore").textContent =
+        "Attempts: " + attempts;
+}
+
+function resetGuess() {
+    secretNumber = randomNumber();
+    attempts = 0;
+    guessFinished = false;
+
+    document.getElementById("guessInput").value = "";
+    document.getElementById("guessStatus").textContent =
+        "New number selected. Make your first guess!";
+    document.getElementById("guessScore").textContent = "Attempts: 0";
+}
+
+/* TIC-TAC-TOE */
+
+let ticCells = Array(9).fill("");
+let ticPlayer = "X";
+let ticOver = false;
+
+const winningLines = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
+];
+
+document.querySelectorAll(".square").forEach(function(button) {
+    button.addEventListener("click", function() {
+        const index = Number(button.dataset.index);
+
+        if (ticOver || ticCells[index] !== "") {
+            return;
+        }
+
+        ticCells[index] = ticPlayer;
+        button.textContent = ticPlayer;
+        button.disabled = true;
+
+        const winner = winningLines.find(function(line) {
+            return line.every(function(cellIndex) {
+                return ticCells[cellIndex] === ticPlayer;
+            });
+        });
+
+        const status = document.getElementById("ticTurn");
+
+        if (winner) {
+            status.textContent = "🎉 Player " + ticPlayer + " wins!";
+            ticOver = true;
+            return;
+        }
+
+        if (ticCells.every(function(cell) {
+            return cell !== "";
+        })) {
+            status.textContent = "It's a draw! Play again.";
+            ticOver = true;
+            return;
+        }
+
+        ticPlayer = ticPlayer === "X" ? "O" : "X";
+        status.textContent = "Player " + ticPlayer + "'s turn";
+    });
+});
+
+function resetTic() {
+    ticCells = Array(9).fill("");
+    ticPlayer = "X";
+    ticOver = false;
+
+    document.querySelectorAll(".square").forEach(function(button) {
+        button.textContent = "";
+        button.disabled = false;
+    });
+
+    document.getElementById("ticTurn").textContent = "Player X's turn";
+}
+
+/* MEMORY MATCH GAME */
+
+const memorySymbols = [
+    "🌟", "🚀", "🎮", "🌈",
+    "⚡", "🪐", "🎯", "🔥"
+];
+
+let memoryDeck = [];
+let firstCard = null;
+let secondCard = null;
+let lockMemory = false;
+let memoryMoves = 0;
+let memoryPairs = 0;
+let memoryRound = 0;
+
+function startMemory() {
+    memoryRound++;
+
+    const thisRound = memoryRound;
+
+    memoryDeck = [...memorySymbols, ...memorySymbols];
+
+    for (let i = memoryDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [memoryDeck[i], memoryDeck[j]] =
+            [memoryDeck[j], memoryDeck[i]];
+    }
+
+    firstCard = null;
+    secondCard = null;
+    lockMemory = false;
+    memoryMoves = 0;
+    memoryPairs = 0;
+
+    document.getElementById("memoryStatus").textContent =
+        "Find your first pair!";
+
+    updateMemoryScore();
+
+    const board = document.getElementById("memoryBoard");
+    board.innerHTML = "";
+
+    memoryDeck.forEach(function(symbol, index) {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "memory-card";
+        button.textContent = "?";
+        button.setAttribute("aria-label", "Hidden card");
+        button.dataset.index = index;
+
+        button.addEventListener("click", function() {
+            flipCard(button, symbol, thisRound);
+        });
+
+        board.appendChild(button);
+    });
+}
+
+function flipCard(button, symbol, round) {
+    if (round !== memoryRound ||
+        lockMemory ||
+        button.disabled ||
+        button === firstCard) {
+        return;
+    }
+
+    button.textContent = symbol;
+    button.setAttribute("aria-label", symbol);
+
+    if (firstCard === null) {
+        firstCard = button;
+        return;
+    }
+
+    secondCard = button;
+    memoryMoves++;
+
+    if (firstCard.textContent === secondCard.textContent) {
+        firstCard.disabled = true;
+        secondCard.disabled = true;
+
+        firstCard = null;
+        secondCard = null;
+        memoryPairs++;
+
+        updateMemoryScore();
+
+        if (memoryPairs === memorySymbols.length) {
+            document.getElementById("memoryStatus").textContent =
+                "🏆 Amazing! You found every pair in " +
+                memoryMoves + " moves!";
+        } else {
+            document.getElementById("memoryStatus").textContent =
+                "Great match! Find the next pair.";
+        }
+    } else {
+        lockMemory = true;
+        updateMemoryScore();
+
+        document.getElementById("memoryStatus").textContent =
+            "Not a match. Keep remembering the symbols!";
+
+        const thisRound = memoryRound;
+
+        setTimeout(function() {
+            if (thisRound !== memoryRound) {
+                return;
+            }
+
+            firstCard.textContent = "?";
+            secondCard.textContent = "?";
+
+            firstCard.setAttribute("aria-label", "Hidden card");
+            secondCard.setAttribute("aria-label", "Hidden card");
+
+            firstCard = null;
+            secondCard = null;
+            lockMemory = false;
+        }, 850);
+    }
+}
+
+function updateMemoryScore() {
+    document.getElementById("memoryScore").textContent =
+        "Moves: " + memoryMoves + " · Pairs: " +
+        memoryPairs + "/" + memorySymbols.length;
+}
+
+/* PREPARE MEMORY GAME WHEN THE PAGE OPENS */
+
+startMemory();
+</script>
+
+</body>
+</html>

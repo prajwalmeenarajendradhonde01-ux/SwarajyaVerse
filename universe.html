@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Explore Universe | SwarajyaVerse Studio</title>
+
+<style>
+:root {
+    --gold: #ffca70;
+    --text: #ffffff;
+    --card: rgba(12, 16, 35, 0.84);
+    --border: rgba(255, 202, 112, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    background:
+        linear-gradient(
+            rgba(4, 7, 23, 0.62),
+            rgba(4, 7, 23, 0.88)
+        ),
+        url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2200&q=85")
+        center / cover fixed;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px 6%;
+    background: rgba(5, 7, 20, 0.85);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    color: var(--gold);
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.back {
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    transition: background 0.25s;
+}
+
+.back:hover {
+    background: rgba(255, 202, 112, 0.15);
+}
+
+main {
+    max-width: 1250px;
+    margin: auto;
+    padding: 65px 24px;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 45px;
+    animation: reveal 0.8s both;
+}
+
+.eyebrow {
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+.heading h1 {
+    margin: 18px 0;
+    font-size: clamp(36px, 7vw, 68px);
+    color: var(--gold);
+}
+
+.heading p {
+    max-width: 670px;
+    margin: auto;
+    line-height: 1.8;
+    color: #eeeaf9;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.card {
+    min-height: 235px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--card);
+    backdrop-filter: blur(10px);
+    transition:
+        transform 0.25s,
+        border-color 0.25s,
+        background 0.25s;
+    animation: reveal 0.7s both;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+    border-color: var(--gold);
+    background: rgba(30, 32, 57, 0.94);
+}
+
+.card:nth-child(2) { animation-delay: 0.05s; }
+.card:nth-child(3) { animation-delay: 0.1s; }
+.card:nth-child(4) { animation-delay: 0.15s; }
+.card:nth-child(5) { animation-delay: 0.2s; }
+.card:nth-child(6) { animation-delay: 0.25s; }
+.card:nth-child(7) { animation-delay: 0.3s; }
+.card:nth-child(8) { animation-delay: 0.35s; }
+
+.icon {
+    font-size: 34px;
+    margin-bottom: 18px;
+}
+
+.card h2 {
+    color: var(--gold);
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #e6e4f2;
+    font-size: 14px;
+    line-height: 1.75;
+    margin-bottom: 20px;
+}
+
+.card strong {
+    color: var(--gold);
+    font-size: 14px;
+    margin-top: auto;
+}
+
+.note {
+    max-width: 700px;
+    margin: 35px auto 0;
+    text-align: center;
+    line-height: 1.8;
+    color: #e7e2f3;
+    font-size: 13px;
+}
+
+footer {
+    padding: 25px 15px;
+    text-align: center;
+    background: rgba(5, 7, 20, 0.85);
+    border-top: 1px solid var(--border);
+    color: #fff0d0;
+    line-height: 1.8;
+    font-size: 13px;
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 950px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    header {
+        justify-content: center;
+    }
+
+    main {
+        padding: 45px 17px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        min-height: 200px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="brand">
+        SV | SWARAJYAVERSE
+    </a>
+
+    <a href="index.html" class="back">
+        ← Back to Home
+    </a>
+</header>
+
+<main>
+
+    <section class="heading">
+        <p class="eyebrow">YOUR DIGITAL WORLD</p>
+
+        <h1>Explore Universe ✨</h1>
+
+        <p>
+            One universe. Infinite possibilities.
+            Discover, learn, play and create your own journey
+            through SwarajyaVerse Studio.
+        </p>
+    </section>
+
+    <section class="grid" aria-label="Explore features">
+
+        <!-- AI STUDIO -->
+        <a href="ai-studio.html" class="card">
+            <span class="icon">✦</span>
+            <h2>AI Studio</h2>
+            <p>
+                Explore artificial intelligence, creative experiments
+                and new technology ideas.
+            </p>
+            <strong>Explore AI →</strong>
+        </a>
+
+        <!-- GAMES -->
+        <a href="games.html" class="card">
+            <span class="icon">🎮</span>
+            <h2>Games</h2>
+            <p>
+                Discover games, enjoy challenges and experiment
+                with interactive ideas.
+            </p>
+            <strong>Enter Games →</strong>
+        </a>
+
+        <!-- BOOKS -->
+        <a href="books.html" class="card">
+            <span class="icon">📚</span>
+            <h2>My Books</h2>
+            <p>
+                Discover books in progress, Maharashtra history,
+                stories and fascinating ideas.
+            </p>
+            <strong>Discover Books →</strong>
+        </a>
+
+        <!-- STUDY ZONE -->
+        <a href="study.html" class="card">
+            <span class="icon">🎓</span>
+            <h2>Study Zone</h2>
+            <p>
+                Choose Maharashtra State Board or CBSE.
+                Explore school subjects, study activities and revision.
+            </p>
+            <strong>Start Learning →</strong>
+        </a>
+
+        <!-- HUMAN CHECKER -->
+        <a href="human-checker.html" class="card">
+            <span class="icon">🤝</span>
+            <h2>Human Checker</h2>
+            <p>
+                Create a friendly quiz and challenge your friends
+                to see how well they know you.
+            </p>
+            <strong>Challenge Friends →</strong>
+        </a>
+
+        <!-- QUIZ ARENA -->
+        <a href="quiz.html" class="card">
+            <span class="icon">🧠</span>
+            <h2>Quiz Arena</h2>
+            <p>
+                Test your knowledge with quizzes and
+                fun question challenges.
+            </p>
+            <strong>Enter Quiz Arena →</strong>
+        </a>
+
+        <!-- INSPIRATION -->
+        <a href="inspiration.html" class="card">
+            <span class="icon">✧</span>
+            <h2>Inspiration</h2>
+            <p>
+                Explore motivational thoughts, positive ideas
+                and reminders to keep learning.
+            </p>
+            <strong>Get Inspired →</strong>
+        </a>
+
+        
+
+    </section>
+
+    <p class="note">
+        SwarajyaVerse Studio is a growing creative project.
+        More features and experiences will be added as development continues.
+    </p>
+
+</main>
+
+<footer>
+    <strong>SwarajyaVerse Studio</strong><br>
+    Rooted in Heritage. Built for Tomorrow.<br>
+    Made by Prajwal Meena Rajendra Dhonde · From Chikhalgaon, Bhor
+</footer>
+
+</body>
+</html>

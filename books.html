@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Books & Digital Library | SwarajyaVerse Studio</title>
+
+<style>
+:root {
+    --gold: #e9bd70;
+    --cream: #fff4dc;
+    --text: #fffaf0;
+    --panel: rgba(27, 23, 30, 0.90);
+    --border: rgba(233, 189, 112, 0.36);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--text);
+    background:
+        radial-gradient(ellipse at top, #443023 0%, transparent 55%),
+        linear-gradient(135deg, #141019, #201b21 55%, #100e17);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 19px 6%;
+    background: rgba(12, 10, 15, 0.92);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    color: var(--gold);
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.back {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    padding: 10px 15px;
+}
+
+.back:hover {
+    color: var(--gold);
+}
+
+.hero {
+    text-align: center;
+    padding: 65px 20px 45px;
+    background:
+        linear-gradient(rgba(20, 14, 18, 0.25),
+                        rgba(20, 14, 18, 0.65));
+}
+
+.eyebrow {
+    color: var(--gold);
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 7vw, 68px);
+    margin: 20px 0;
+    color: var(--cream);
+}
+
+.hero p {
+    max-width: 680px;
+    margin: auto;
+    line-height: 1.9;
+    color: #e7dcd1;
+}
+
+main {
+    width: min(1150px, 92%);
+    margin: auto;
+    padding: 40px 0 70px;
+}
+
+.section {
+    margin-top: 35px;
+}
+
+.section-heading {
+    margin-bottom: 24px;
+}
+
+.section-heading h2 {
+    font-size: clamp(27px, 4vw, 36px);
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.section-heading p {
+    color: #e3d7ce;
+    line-height: 1.8;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.book-card {
+    overflow: hidden;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    transition: transform 0.25s, border-color 0.25s;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+.book-cover {
+    min-height: 255px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cover-marathas {
+    background:
+        linear-gradient(rgba(34, 16, 11, 0.32),
+                        rgba(25, 13, 12, 0.82)),
+        url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80")
+        center / cover;
+}
+
+.cover-maharashtra {
+    background:
+        linear-gradient(rgba(20, 13, 24, 0.38),
+                        rgba(20, 13, 24, 0.86)),
+        url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=80")
+        center / cover;
+}
+
+.cover-inner {
+    width: 100%;
+    max-width: 340px;
+    padding: 25px 18px;
+    border: 1px solid rgba(255, 220, 160, 0.75);
+    box-shadow: inset 0 0 25px rgba(0,0,0,0.18);
+}
+
+.cover-inner .small {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #ffe0a5;
+}
+
+.cover-inner h3 {
+    font-size: clamp(22px, 3vw, 30px);
+    line-height: 1.25;
+    margin: 18px 0;
+    color: #fff4d8;
+}
+
+.cover-inner .author {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #ffe0a5;
+}
+
+.book-info {
+    padding: 25px;
+}
+
+.tag {
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 10px;
+    margin-bottom: 13px;
+}
+
+.book-info h3 {
+    color: var(--cream);
+    font-size: 23px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.book-info p {
+    font-size: 15px;
+    color: #e3d7ce;
+    line-height: 1.85;
+}
+
+.status {
+    margin-top: 17px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #ffdb99;
+    line-height: 1.8;
+}
+
+.library-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.library-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 230px;
+    padding: 24px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    transition: transform 0.25s, border-color 0.25s;
+}
+
+.library-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+.library-icon {
+    font-size: 32px;
+    margin-bottom: 17px;
+}
+
+.library-card h3 {
+    color: var(--gold);
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.library-card p {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #e3d7ce;
+    margin-bottom: 20px;
+}
+
+.read-link {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: var(--gold);
+    font-weight: bold;
+    margin-top: auto;
+}
+
+.read-link:hover {
+    text-decoration: underline;
+}
+
+.search-area {
+    margin: 18px 0 25px;
+}
+
+.search-area label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--cream);
+    font-family: Arial, sans-serif;
+}
+
+#bookSearch {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #17131b;
+    color: white;
+    font-size: 15px;
+}
+
+#bookSearch:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+#noResults {
+    display: none;
+    color: #ffdb99;
+    margin: 18px 0;
+    line-height: 1.8;
+}
+
+.reading-tip {
+    margin-top: 35px;
+    padding: 25px;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 14px 14px 0;
+    background: rgba(233, 189, 112, 0.08);
+}
+
+.reading-tip h3 {
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-size: 22px;
+}
+
+.reading-tip p {
+    color: #e3d7ce;
+    line-height: 1.9;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    color: #e3d7ce;
+    background: rgba(12, 10, 15, 0.92);
+    border-top: 1px solid var(--border);
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+@media (max-width: 800px) {
+    .library-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    header {
+        justify-content: center;
+    }
+
+    .book-grid,
+    .library-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding-top: 45px;
+    }
+
+    .book-cover {
+        min-height: 230px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="brand">SV | SWARAJYAVERSE</a>
+    <a href="universe.html" class="back">← Explore Universe</a>
+</header>
+
+<section class="hero">
+    <p class="eyebrow">A WORLD BETWEEN THE COVERS</p>
+    <h1>My Books & Digital Library 📚</h1>
+    <p>
+        Every book opens a new world.
+        Discover my writing projects and explore online reading
+        resources for history, stories, knowledge and imagination.
+    </p>
+</section>
+
+<main>
+
+    <!-- MY BOOKS -->
+
+    <section class="section">
+        <div class="section-heading">
+            <h2>✍️ My Books</h2>
+            <p>
+                Original book projects by Prajwal Meena Rajendra Dhonde.
+                These projects are being developed, so the covers shown
+                here are website designs rather than final published covers.
+            </p>
+        </div>
+
+        <div class="book-grid">
+
+            <article class="book-card">
+                <div class="book-cover cover-marathas">
+                    <div class="cover-inner">
+                        <p class="small">A JOURNEY THROUGH HISTORY</p>
+                        <h3>The Marathas:<br>From the Shadows<br>to Swarajya</h3>
+                        <p class="author">PRAJWAL DHONDE</p>
+                    </div>
+                </div>
+
+                <div class="book-info">
+                    <span class="tag">HISTORY · IN PROGRESS</span>
+                    <h3>The Marathas: From the Shadows to Swarajya</h3>
+                    <p>
+                        A planned journey through the rise of the Marathas,
+                        the creation of Swarajya, forts, historical figures,
+                        battles, administration and the legacy of Maharashtra.
+                    </p>
+                    <p class="status">
+                        ✦ Writing project in progress.
+                        Publication and reading links will be added when ready.
+                    </p>
+                </div>
+            </article>
+
+            <article class="book-card">
+                <div class="book-cover cover-maharashtra">
+                    <div class="cover-inner">
+                        <p class="small">CULTURE · HERITAGE · HISTORY</p>
+                        <h3>Maharashtra:<br>The Unwritten Chapters</h3>
+                        <p class="author">A JOURNEY THROUGH TIME</p>
+                        <p class="author" style="margin-top:14px">
+                            PRAJWAL DHONDE
+                        </p>
+                    </div>
+                </div>
+
+                <div class="book-info">
+                    <span class="tag">MAHARASHTRA · IN PROGRESS</span>
+                    <h3>Maharashtra: The Unwritten Chapters — A Journey Through Time</h3>
+                    <p>
+                        A planned exploration of Maharashtra's heritage,
+                        historic places, traditions, culture and fascinating
+                        stories that deserve to be explored.
+                    </p>
+                    <p class="status">
+                        ✦ Writing project in progress.
+                        More information will be added as the book develops.
+                    </p>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- ONLINE READING LIBRARY -->
+
+    <section class="section" id="online-library">
+        <div class="section-heading">
+            <h2>🌐 Online Reading Library</h2>
+            <p>
+                Explore these external reading websites.
+                Availability, borrowing requirements and language options
+                vary between books.
+            </p>
+        </div>
+
+        <div class="search-area">
+            <label for="bookSearch">
+                Search these reading resources by topic or name
+            </label>
+            <input
+                type="search"
+                id="bookSearch"
+                placeholder="Try history, classics, English or free ebooks..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="library-grid" id="libraryGrid">
+
+            <article class="library-card"
+                     data-search="project gutenberg free ebooks classic literature novels stories history science english">
+                <span class="library-icon">📖</span>
+                <h3>Project Gutenberg</h3>
+                <p>
+                    Read or download thousands of free ebooks, especially
+                    classic literature and older public-domain works.
+                </p>
+                <a class="read-link"
+                   href="https://www.gutenberg.org/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Visit Library ↗
+                </a>
+            </article>
+
+            <article class="library-card"
+                     data-search="wikisource free texts historical documents literature poetry languages">
+                <span class="library-icon">📜</span>
+                <h3>Wikisource</h3>
+                <p>
+                    Explore a free collection of texts, historical documents,
+                    literature and works in different languages.
+                </p>
+                <a class="read-link"
+                   href="https://en.wikisource.org/wiki/Main_Page"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Read Texts ↗
+                </a>
+            </article>
+
+            <article class="library-card"
+                     data-search="open library discover books online borrowing digital editions fiction history education">
+                <span class="library-icon">🏛️</span>
+                <h3>Open Library</h3>
+                <p>
+                    Discover books across many subjects and read available
+                    digital editions. Some books require an account or
+                    a borrowing period.
+                </p>
+                <a class="read-link"
+                   href="https://openlibrary.org/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Explore Books ↗
+                </a>
+            </article>
+
+        </div>
+
+        <p id="noResults" aria-live="polite">
+            No matching resource found. Try another search word.
+        </p>
+    </section>
+
+    <!-- READING CORNER -->
+
+    <section class="section">
+        <div class="section-heading">
+            <h2>✨ Reading Corner</h2>
+            <p>Choose a reading path based on your interests.</p>
+        </div>
+
+        <div class="library-grid">
+
+            <article class="library-card">
+                <span class="library-icon">🏰</span>
+                <h3>History & Heritage</h3>
+                <p>
+                    Explore historical documents, biographies,
+                    old travel accounts and public-domain history books.
+                </p>
+                <a class="read-link"
+                   href="https://en.wikisource.org/wiki/Category:History"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Explore History ↗
+                </a>
+            </article>
+
+            <article class="library-card">
+                <span class="library-icon">🚀</span>
+                <h3>Stories & Imagination</h3>
+                <p>
+                    Discover classic adventure stories, mysteries,
+                    science fiction and timeless literature.
+                </p>
+                <a class="read-link"
+                   href="https://www.gutenberg.org/ebooks/bookshelf/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Browse Classics ↗
+                </a>
+            </article>
+
+            <article class="library-card">
+                <span class="library-icon">🎓</span>
+                <h3>Knowledge & Learning</h3>
+                <p>
+                    Read across literature, science, society and other
+                    subjects to build knowledge and vocabulary.
+                </p>
+                <a class="read-link"
+                   href="https://www.gutenberg.org/ebooks/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Find Reading Material ↗
+                </a>
+            </article>
+
+        </div>
+    </section>
+
+    <section class="reading-tip">
+        <h3>📚 A Note for Every Reader</h3>
+        <p>
+            Check the language, edition and availability before choosing
+            a book. Some websites offer free public-domain texts, while
+            other books may require borrowing or have different access
+            conditions. Use legitimate copies and respect authors'
+            copyright. My own books will be linked here when they are
+            ready to share.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    <strong>SwarajyaVerse Studio</strong><br>
+    Rooted in Heritage. Built for Tomorrow.<br>
+    My Books & Digital Library · Made by Prajwal Meena Rajendra Dhonde
+</footer>
+
+<script>
+const searchInput = document.getElementById("bookSearch");
+const libraryCards = document.querySelectorAll(
+    "#libraryGrid .library-card"
+);
+const noResults = document.getElementById("noResults");
+
+searchInput.addEventListener("input", function() {
+    const query = searchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    libraryCards.forEach(function(card) {
+        const searchableText =
+            card.textContent.toLowerCase() + " " +
+            card.dataset.search.toLowerCase();
+
+        const matches = searchableText.includes(query);
+
+        card.style.display = matches ? "flex" : "none";
+
+        if (matches) {
+            visibleCount++;
+        }
+    });
+
+    noResults.style.display = visibleCount === 0 ? "block" : "none";
+});
+</script>
+
+</body>
+</html>

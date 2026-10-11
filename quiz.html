@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwarajyaVerse | Quiz Arena</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#080b20,#14264a,#321b50);color:white;min-height:100vh}
+header{text-align:center;padding:25px 12px}
+header h1{margin:0;color:#ffd166;font-size:clamp(27px,5vw,42px)}
+header p{color:#d6def7}
+main{max-width:850px;margin:auto;padding:15px}
+.panel{background:#ffffff12;border:1px solid #ffffff25;border-radius:20px;padding:22px;margin-bottom:18px;box-shadow:0 10px 30px #0003}
+h2{margin-top:0}
+label{display:block;margin:14px 0 7px}
+select,button{font:inherit;border-radius:10px;padding:12px;border:0}
+select{width:100%;background:#fff;color:#18213b}
+button{cursor:pointer;font-weight:bold;background:#ffd166;color:#20213a}
+button:hover{filter:brightness(1.08)}
+.primary{width:100%;margin-top:18px}
+.ages{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:9px;margin-top:10px}
+.age{background:#ffffff12;border:1px solid #ffffff35;color:white}
+.age.active{background:#ffd166;color:#222;border-color:#ffd166}
+.option{display:block;width:100%;text-align:left;margin:9px 0;background:#ffffff12;color:white;border:1px solid #ffffff35}
+.option.correct{background:#176c4a;border-color:#52e0a0}
+.option.wrong{background:#8b303e;border-color:#ff8a9b}
+.option:disabled{cursor:default;opacity:1}
+#feedback{min-height:25px;margin-top:12px;font-weight:bold}
+.small{font-size:14px;color:#d6def7}
+.hidden{display:none}
+footer{text-align:center;padding:20px;color:#c7cee7}
+</style>
+</head>
+<body>
+<header>
+<h1>🌌 SwarajyaVerse Quiz Arena</h1>
+<p>Explore knowledge. Challenge yourself. Keep learning!</p>
+</header>
+
+<main>
+<section class="panel" id="setup">
+<h2>🎯 Choose Your Quiz</h2>
+<label>1. Select your age group</label>
+<div class="ages" id="ages">
+<button class="age" data-age="3–5">3–5 years</button>
+<button class="age" data-age="6–10">6–10 years</button>
+<button class="age" data-age="11–14">11–14 years</button>
+<button class="age" data-age="15–17">15–17 years</button>
+<button class="age" data-age="18–30">18–30 years</button>
+<button class="age" data-age="31–50">31–50 years</button>
+<button class="age" data-age="51–70">51–70 years</button>
+<button class="age" data-age="71–100">71–100 years</button>
+</div>
+
+<label for="category">2. Select quiz category</label>
+<select id="category">
+<option value="gk">General Knowledge</option>
+<option value="school">Class 8 School Study</option>
+</select>
+
+<label for="subject">3. Select subject</label>
+<select id="subject">
+<option value="mixed">Mixed Questions</option>
+<option value="math">Mathematics</option>
+<option value="science">Science</option>
+<option value="history">History & Geography</option>
+<option value="english">English</option>
+</select>
+<p class="small">Choose any age group that suits your preferred difficulty.</p>
+<button class="primary" id="start">🚀 Start Quiz</button>
+</section>
+
+<section class="panel hidden" id="quiz">
+<p id="progress" class="small"></p>
+<h2 id="question"></h2>
+<div id="options"></div>
+<div id="feedback" aria-live="polite"></div>
+<button id="next" class="primary" disabled>Next Question →</button>
+</section>
+
+<section class="panel hidden" id="result">
+<h2>🏆 Quiz Completed!</h2>
+<h1 id="score"></h1>
+<p id="message"></p>
+<button id="restart" class="primary">Play Again ↻</button>
+</section>
+</main>
+<footer>© SwarajyaVerse • Learn something new every day</footer>
+
+<script>
+const bank = {
+gk: [
+{q:"Which planet is known as the Red Planet?",s:"mixed",a:["Venus","Mars","Jupiter","Mercury"],c:1},
+{q:"What is the capital of India?",s:"mixed",a:["Mumbai","New Delhi","Pune","Jaipur"],c:1},
+{q:"Which is the largest ocean on Earth?",s:"mixed",a:["Indian","Atlantic","Pacific","Arctic"],c:2},
+{q:"How many days are there in a leap year?",s:"mixed",a:["365","366","364","360"],c:1},
+{q:"Which gas do plants absorb from the atmosphere?",s:"science",a:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],c:2},
+{q:"Who wrote India's national anthem?",s:"history",a:["Rabindranath Tagore","Mahatma Gandhi","Jawaharlal Nehru","Sarojini Naidu"],c:0},
+{q:"What is 12 × 8?",s:"math",a:["86","96","108","88"],c:1},
+{q:"Which word is a noun?",s:"english",a:["Quickly","Beautiful","Garden","Run"],c:2},
+{q:"Which is the nearest star to Earth?",s:"science",a:["Sirius","The Sun","Polaris","Vega"],c:1},
+{q:"How many sides does a hexagon have?",s:"math",a:["Five","Six","Seven","Eight"],c:1}
+],
+school: [
+{q:"What is the square of 12?",s:"math",a:["124","144","122","132"],c:1},
+{q:"What is the sum of the interior angles of a quadrilateral?",s:"math",a:["180°","270°","360°","90°"],c:2},
+{q:"What is the basic unit of life?",s:"science",a:["Atom","Cell","Organ","Tissue"],c:1},
+{q:"Which organ pumps blood around the human body?",s:"science",a:["Lungs","Brain","Heart","Kidneys"],c:2},
+{q:"What is the process by which plants make food?",s:"science",a:["Respiration","Photosynthesis","Digestion","Evaporation"],c:1},
+{q:"Who was the founder of Swarajya in the Maratha kingdom?",s:"history",a:["Chhatrapati Shivaji Maharaj","Akbar","Ashoka","Bajirao II"],c:0},
+{q:"Which is the longest river in India by total length within India?",s:"history",a:["Godavari","Ganga","Narmada","Krishna"],c:1},
+{q:"Choose the correct plural of 'child'.",s:"english",a:["Childs","Childes","Children","Childrens"],c:2},
+{q:"What is 3/4 expressed as a percentage?",s:"math",a:["25%","50%","75%","80%"],c:2},
+{q:"Which force pulls objects towards Earth?",s:"science",a:["Friction","Magnetism","Gravity","Electricity"],c:2}
+]
+};
+
+let selectedAge = "";
+let questions = [];
+let current = 0;
+let points = 0;
+let answered = false;
+
+const $ = id => document.getElementById(id);
+
+$("ages").addEventListener("click", e => {
+  const btn = e.target.closest("button[data-age]");
+  if (!btn) return;
+  selectedAge = btn.dataset.age;
+  document.querySelectorAll(".age").forEach(b =>
+    b.classList.toggle("active", b === btn)
+  );
+  if (selectedAge === "3–5" || selectedAge === "6–10") {
+    $("category").value = "gk";
+    $("subject").value = "mixed";
+  }
+});
+
+$("category").addEventListener("change", () => {
+  if ($("category").value === "school") {
+    $("subject").value = "mixed";
+  }
+});
+
+$("start").addEventListener("click", () => {
+  if (!selectedAge) {
+    alert("Please select your age group first!");
+    return;
+  }
+  const category = $("category").value;
+  const subject = $("subject").value;
+  questions = bank[category].filter(q =>
+    subject === "mixed" || q.s === subject
+  );
+  if (!questions.length) {
+    alert("No questions available for that subject yet. Choose Mixed Questions.");
+    return;
+  }
+  questions = [...questions].sort(() => Math.random() - 0.5).slice(0, 5);
+  current = 0;
+  points = 0;
+  $("setup").classList.add("hidden");
+  $("result").classList.add("hidden");
+  $("quiz").classList.remove("hidden");
+  showQuestion();
+});
+
+function showQuestion() {
+  answered = false;
+  const q = questions[current];
+  $("progress").textContent =
+    "Age group: " + selectedAge + " • Question " + (current + 1) + " of " + questions.length;
+  $("question").textContent = q.q;
+  $("options").innerHTML = "";
+  $("feedback").textContent = "";
+  $("next").disabled = true;
+  $("next").textContent = current === questions.length - 1 ? "See Results 🏆" : "Next Question →";
+
+  q.a.forEach((answer, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.textContent = String.fromCharCode(65 + i) + ". " + answer;
+    btn.addEventListener("click", () => chooseAnswer(i, btn));
+    $("options").appendChild(btn);
+  });
+}
+
+function chooseAnswer(index, button) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  document.querySelectorAll(".option").forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.c) btn.classList.add("correct");
+  });
+  if (index === q.c) {
+    points++;
+    $("feedback").textContent = "✅ Correct! Well done!";
+  } else {
+    button.classList.add("wrong");
+    $("feedback").textContent = "❌ Not quite. The correct answer is " + q.a[q.c] + ".";
+  }
+  $("next").disabled = false;
+}
+
+$("next").addEventListener("click", () => {
+  if (!answered) return;
+  current++;
+  if (current < questions.length) {
+    showQuestion();
+  } else {
+    $("quiz").classList.add("hidden");
+    $("result").classList.remove("hidden");
+    $("score").textContent = points + " / " + questions.length;
+    $("message").textContent = points === questions.length
+      ? "Perfect score! Outstanding work!"
+      : points >= 3
+      ? "Great effort! Keep exploring and learning."
+      : "Keep practising. Every question helps you learn!";
+  }
+});
+
+$("restart").addEventListener("click", () => {
+  $("result").classList.add("hidden");
+  $("setup").classList.remove("hidden");
+});
+</script>
+</body>
+</html>

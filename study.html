@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Zone | SwarajyaVerse Studio</title>
+
+<style>
+:root {
+  --bg: #07111f;
+  --panel: #101f33;
+  --text: #f4f7ff;
+  --muted: #b7c5d9;
+  --accent: #67e8f9;
+  --gold: #ffd166;
+  --border: #29405a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(ellipse at top, #16365b 0%, transparent 55%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+header {
+  padding: 25px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 22px;
+}
+
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  margin-left: 18px;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+.hero {
+  text-align: center;
+  padding: 65px 20px 35px;
+}
+
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 3px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: clamp(35px, 6vw, 58px);
+  margin: 15px 0;
+}
+
+h1 span {
+  color: var(--accent);
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 650px;
+  margin: auto;
+  line-height: 1.8;
+}
+
+main {
+  width: min(1100px, 92%);
+  margin: auto;
+  padding-bottom: 60px;
+}
+
+.section-title {
+  margin: 35px 0 18px;
+  font-size: 25px;
+}
+
+.board-grid,
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  transition: transform .25s, border-color .25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.board-icon {
+  font-size: 35px;
+}
+
+.card h3 {
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+button,
+select {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: var(--accent);
+  color: #07111f;
+  font-weight: bold;
+}
+
+button:hover {
+  filter: brightness(1.08);
+}
+
+select {
+  background: #0b1728;
+  color: white;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+}
+
+.subject-card {
+  cursor: pointer;
+}
+
+.subject-card.selected {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold);
+}
+
+#learningArea {
+  margin-top: 25px;
+}
+
+.lesson {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 25px;
+  line-height: 1.8;
+}
+
+.lesson h3 {
+  color: var(--accent);
+}
+
+.notice {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.quiz-option {
+  display: block;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.quiz-option input {
+  margin-right: 9px;
+}
+
+.planner-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.planner-item input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.progress-track {
+  height: 9px;
+  background: #26374c;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width .3s;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  nav a {
+    margin: 0 7px;
+  }
+
+  .hero {
+    padding-top: 45px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">SwarajyaVerse Studio</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="universe.html">Universe</a>
+    <a href="games.html">Games</a>
+    <a href="books.html">Books</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">LEARN • PRACTISE • PROGRESS</div>
+  <h1>Your Personal <span>Study Zone</span></h1>
+  <p>
+    Choose your education board, select your class and explore
+    learning activities designed to make studying more organised.
+  </p>
+</section>
+
+<main>
+
+  <h2 class="section-title">01. Choose Your Education Board</h2>
+
+  <div class="board-grid">
+    <div class="card">
+      <div class="board-icon">🏫</div>
+      <h3>Maharashtra State Board</h3>
+      <p>Study support for students following the Maharashtra State Board curriculum.</p>
+      <button onclick="chooseBoard('Maharashtra State Board')">
+        Select State Board
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="board-icon">📚</div>
+      <h3>CBSE Board</h3>
+      <p>Study support for students following the Central Board of Secondary Education curriculum.</p>
+      <button onclick="chooseBoard('CBSE')">
+        Select CBSE
+      </button>
+    </div>
+  </div>
+
+  <section id="studyDashboard" hidden>
+    <h2 class="section-title">02. Set Up Your Learning</h2>
+
+    <p id="selectedBoard" class="notice"></p>
+
+    <div class="controls">
+      <div>
+        <label for="classSelect">Select your class</label>
+        <select id="classSelect">
+          <option value="">Choose class</option>
+          <option value="1">Class 1</option>
+          <option value="2">Class 2</option>
+          <option value="3">Class 3</option>
+          <option value="4">Class 4</option>
+          <option value="5">Class 5</option>
+          <option value="6">Class 6</option>
+          <option value="7">Class 7</option>
+          <option value="8">Class 8</option>
+          <option value="9">Class 9</option>
+          <option value="10">Class 10</option>
+          <option value="11">Class 11</option>
+          <option value="12">Class 12</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="subjectSelect">Select your subject</label>
+        <select id="subjectSelect">
+          <option value="Mathematics">Mathematics</option>
+          <option value="Science">Science</option>
+          <option value="English">English</option>
+          <option value="Social Science">Social Science</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Marathi">Marathi</option>
+        </select>
+      </div>
+    </div>
+
+    <h2 class="section-title">03. Explore Learning Tools</h2>
+
+    <div class="subject-grid">
+      <div class="card subject-card" onclick="openLesson('notes')">
+        <div class="board-icon">📖</div>
+        <h3>Study Notes</h3>
+        <p>Open a sample learning note.</p>
+      </div>
+
+      <div class="card subject-card" onclick="openLesson('quiz')">
+        <div class="board-icon">🧠</div>
+        <h3>Practice Quiz</h3>
+        <p>Test your knowledge with a short quiz.</p>
+      </div>
+
+      <div class="card subject-card" onclick="openLesson('revision')">
+        <div class="board-icon">🔄</div>
+        <h3>Quick Revision</h3>
+        <p>Review important study habits and concepts.</p>
+      </div>
+    </div>
+
+    <div id="learningArea" aria-live="polite"></div>
+
+    <h2 class="section-title">04. My Study Planner</h2>
+
+    <div class="card">
+      <p>Tick each task as you complete it.</p>
+
+      <div class="planner-item">
+        <input type="checkbox" class="task">
+        <span>Revise today's lesson</span>
+      </div>
+
+      <div class="planner-item">
+        <input type="checkbox" class="task">
+        <span>Practise five questions</span>
+      </div>
+
+      <div class="planner-item">
+        <input type="checkbox" class="task">
+        <span>Read or review my notes</span>
+      </div>
+
+      <div class="planner-item">
+        <input type="checkbox" class="task">
+        <span>Prepare for the next lesson</span>
+      </div>
+
+      <div class="progress-track">
+        <div id="progressBar"></div>
+      </div>
+
+      <p id="progressText" aria-live="polite">0 of 4 tasks completed</p>
+      <button onclick="resetPlanner()">Reset Planner</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 SwarajyaVerse Studio | Learn something new every day.</p>
+  <p class="notice">
+    Sample learning activities only. Check your official board textbook
+    and syllabus for class-specific content.
+  </p>
+</footer>
+
+<script>
+let currentBoard = "";
+
+function chooseBoard(board) {
+  currentBoard = board;
+
+  document.getElementById("studyDashboard").hidden = false;
+  document.getElementById("selectedBoard").textContent =
+    "Selected board: " + currentBoard;
+
+  document.getElementById("studyDashboard").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  document.getElementById("learningArea").innerHTML = "";
+}
+
+function getStudyDetails() {
+  const classValue = document.getElementById("classSelect").value;
+  const subject = document.getElementById("subjectSelect").value;
+
+  if (!classValue) {
+    alert("Please select your class first.");
+    return null;
+  }
+
+  return {
+    board: currentBoard,
+    className: "Class " + classValue,
+    subject: subject
+  };
+}
+
+function openLesson(type) {
+  const details = getStudyDetails();
+  if (!details) return;
+
+  const area = document.getElementById("learningArea");
+
+  const heading = `
+    <h2>${details.subject} — ${details.className}</h2>
+    <p class="notice">Board: ${details.board}</p>
+  `;
+
+  if (type === "notes") {
+    area.innerHTML = `
+      <div class="lesson">
+        ${heading}
+        <h3>Welcome to your Study Notes</h3>
+        <p>
+          This is your learning workspace. Your selected subject is
+          <strong>${details.subject}</strong>.
+        </p>
+        <p>
+          Add chapter-wise notes, definitions, important questions and
+          textbook references here as the study materials are developed.
+        </p>
+        <p class="notice">
+          Chapter-specific notes have not been added yet. Use your official
+          ${details.board} textbook to ensure accuracy.
+        </p>
+      </div>
+    `;
+  }
+
+  if (type === "revision") {
+    area.innerHTML = `
+      <div class="lesson">
+        ${heading}
+        <h3>Quick Revision Checklist</h3>
+        <ul>
+          <li>Read the chapter carefully.</li>
+          <li>Understand the important concepts and definitions.</li>
+          <li>Review examples from your textbook.</li>
+          <li>Answer practice questions without looking at the notes.</li>
+          <li>Revisit the topics that need more practice.</li>
+        </ul>
+        <p class="notice">
+          This is a general revision guide, not an official chapter summary.
+        </p>
+      </div>
+    `;
+  }
+
+  if (type === "quiz") {
+    area.innerHTML = `
+      <div class="lesson">
+        ${heading}
+        <h3>Practice Quiz</h3>
+        <p>Which is a useful study habit?</p>
+
+        <label class="quiz-option">
+          <input type="radio" name="studyQuiz" value="0">
+          Memorising everything without understanding
+        </label>
+
+        <label class="quiz-option">
+          <input type="radio" name="studyQuiz" value="1">
+          Understanding concepts and practising questions
+        </label>
+
+        <label class="quiz-option">
+          <input type="radio" name="studyQuiz" value="0">
+          Skipping revision completely
+        </label>
+
+        <button onclick="checkQuiz()">Check Answer</button>
+        <p id="quizResult" aria-live="polite"></p>
+      </div>
+    `;
+  }
+
+  area.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+function checkQuiz() {
+  const answer = document.querySelector('input[name="studyQuiz"]:checked');
+  const result = document.getElementById("quizResult");
+
+  if (!answer) {
+    result.textContent = "Choose an answer first.";
+    return;
+  }
+
+  if (answer.value === "1") {
+    result.textContent = "Correct! Understanding and practice help you learn.";
+  } else {
+    result.textContent = "Not quite. Try again and think about effective study habits.";
+  }
+}
+
+function updateProgress() {
+  const tasks = [...document.querySelectorAll(".task")];
+  const completed = tasks.filter(task => task.checked).length;
+  const percentage = (completed / tasks.length) * 100;
+
+  document.getElementById("progressBar").style.width = percentage + "%";
+  document.getElementById("progressText").textContent =
+    completed + " of " + tasks.length + " tasks completed";
+}
+
+document.querySelectorAll(".task").forEach(task => {
+  task.addEventListener("change", updateProgress);
+});
+
+function resetPlanner() {
+  document.querySelectorAll(".task").forEach(task => {
+    task.checked = false;
+  });
+
+  updateProgress();
+}
+</script>
+
+</body>
+</html>

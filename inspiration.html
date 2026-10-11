@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwarajyaVerse | Inspiration Zone</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:white;
+  background:#080d20;
+}
+header{
+  text-align:center;
+  padding:24px 15px;
+  background:#101936;
+  border-bottom:1px solid #ffffff20;
+}
+header h1{color:#ffd166;margin:0;font-size:clamp(28px,5vw,43px)}
+header p{color:#cbd5f5}
+nav{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:18px}
+nav a{color:white;text-decoration:none;font-weight:bold}
+nav a:hover{color:#ffd166}
+main{max-width:900px;margin:auto;padding:24px 15px}
+.panel{
+  background:#ffffff0d;
+  border:1px solid #ffffff20;
+  border-radius:20px;
+  padding:24px;
+  margin-bottom:20px;
+}
+h2{margin-top:0}
+label{display:block;margin:16px 0 8px;font-weight:bold}
+select,textarea,button{
+  font:inherit;width:100%;padding:13px;border-radius:10px;
+}
+select,textarea{background:#fff;color:#18213b;border:0}
+textarea{min-height:90px;resize:vertical}
+button{
+  border:0;background:#ffd166;color:#222442;
+  font-weight:bold;cursor:pointer;margin-top:14px;
+}
+button:hover{filter:brightness(1.08)}
+#result{display:none}
+#inspireImage{
+  width:100%;height:270px;object-fit:cover;
+  border-radius:14px;margin-top:10px;background:#17213e;
+}
+.quote{
+  font-size:clamp(22px,4vw,31px);
+  line-height:1.5;color:#ffe09a;font-weight:bold;
+}
+#message{line-height:1.7;color:#e0e7ff}
+.small{color:#c5cee9;font-size:13px;line-height:1.6}
+footer{text-align:center;color:#bfc8e5;padding:22px}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>✨ SwarajyaVerse Inspiration</h1>
+  <p>Your challenges do not define you. Your next step matters.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="books.html">Books</a>
+    <a href="quiz.html">Quiz</a>
+  </nav>
+</header>
+
+<main>
+<section class="panel" id="formPanel">
+  <h2>💭 Tell Us What's on Your Mind</h2>
+  <p>Choose a challenge and discover a little encouragement for your journey.</p>
+
+  <label for="problem">What would you like help with?</label>
+  <select id="problem">
+    <option value="study">📚 School or study stress</option>
+    <option value="failure">🌱 Fear of failure</option>
+    <option value="confidence">🦁 Building confidence</option>
+    <option value="motivation">🔥 Lack of motivation</option>
+    <option value="goals">🎯 Achieving my goals</option>
+    <option value="friendship">🤝 Friendship difficulties</option>
+    <option value="sad">🌧️ Feeling low or disappointed</option>
+    <option value="future">🌟 Worrying about the future</option>
+  </select>
+
+  <label for="details">Want to share more? (Optional)</label>
+  <textarea id="details" maxlength="400"
+    placeholder="Write a little about your challenge. Please don't include private details."></textarea>
+
+  <button id="inspireButton">✨ Find My Inspiration</button>
+  <p class="small">This demo responds to the category you choose. Your written description is not sent to an AI service.</p>
+</section>
+
+<section class="panel" id="result" aria-live="polite">
+  <h2 id="resultTitle">🌟 A Message for You</h2>
+  <p id="message"></p>
+  <img id="inspireImage" alt="Inspirational landscape">
+  <p class="quote" id="quote"></p>
+  <p class="small" id="author"></p>
+  <button id="againButton">🔄 Another Inspiration</button>
+  <button id="backButton" style="background:#dce5ff">← Choose Another Challenge</button>
+</section>
+</main>
+
+<footer>Keep learning. Keep believing. Keep moving forward. © SwarajyaVerse</footer>
+
+<script>
+const inspirations = {
+  study: {
+    title:"📚 One Step at a Time",
+    message:"Studying can sometimes feel overwhelming. Break your work into small tasks, take sensible breaks, and ask a teacher or trusted adult for help when you need it.",
+    quotes:[
+      ["Progress matters more than perfection.","Original quote"],
+      ["A small step taken today can make tomorrow easier.","Original quote"],
+      ["Every question you ask is an opportunity to learn.","Original quote"]
+    ],
+    image:"https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1100&q=80",
+    alt:"A peaceful study desk with books and notes"
+  },
+  failure: {
+    title:"🌱 Learn and Rise",
+    message:"A setback does not decide your future. Look at what you can learn, adjust your plan, and try again when you're ready. Everyone needs time to improve.",
+    quotes:[
+      ["A setback can become the beginning of a new lesson.","Original quote"],
+      ["You are allowed to learn while you grow.","Original quote"],
+      ["Mistakes are moments to learn, not labels for life.","Original quote"]
+    ],
+    image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1100&q=80",
+    alt:"Mountain peaks rising into the sky"
+  },
+  confidence: {
+    title:"🦁 Believe in Your Growth",
+    message:"You do not have to be perfect to be valuable. Practise, speak kindly to yourself, and remember that confidence often grows through small acts of courage.",
+    quotes:[
+      ["Courage begins when you give yourself a chance.","Original quote"],
+      ["You can grow without comparing your journey to someone else's.","Original quote"],
+      ["Your voice deserves to be heard with respect.","Original quote"]
+    ],
+    image:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1100&q=80",
+    alt:"A calm mountain lake surrounded by nature"
+  },
+  motivation: {
+    title:"🔥 Begin with One Small Action",
+    message:"You don't need to feel motivated every moment. Choose one manageable task and start there. Rest is important too, and asking for support is a strength.",
+    quotes:[
+      ["Small beginnings can lead to meaningful journeys.","Original quote"],
+      ["You do not need the whole map to take the first step.","Original quote"],
+      ["Consistency grows from small actions repeated with care.","Original quote"]
+    ],
+    image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1100&q=80",
+    alt:"Sunlight shining over a beautiful natural landscape"
+  },
+  goals: {
+    title:"🎯 Keep Your Purpose in Sight",
+    message:"Big goals become easier to approach when you divide them into realistic steps. Make a simple plan, celebrate progress, and allow yourself to change direction when needed.",
+    quotes:[
+      ["A clear next step makes a distant goal feel closer.","Original quote"],
+      ["Dream boldly, plan wisely, and begin patiently.","Original quote"],
+      ["Your future is built through choices made along the way.","Original quote"]
+    ],
+    image:"https://images.unsplash.com/photo-1464278533981-50106e6176b1?auto=format&fit=crop&w=1100&q=80",
+    alt:"A trail leading toward distant mountains"
+  },
+  friendship: {
+    title:"🤝 You Deserve Respect",
+    message:"Healthy friendships include kindness, honesty, and boundaries. If something hurts you, consider talking calmly with someone you trust. You don't have to solve every problem alone.",
+    quotes:[
+      ["True connection leaves room for kindness and respect.","Original quote"],
+      ["Listening can be the first step toward understanding.","Original quote"],
+      ["A healthy friendship allows both people to be themselves.","Original quote"]
+    ],
+    image:"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1100&q=80",
+    alt:"Warm sunrise spreading across a peaceful landscape"
+  },
+  sad: {
+    title:"🌧️ Give Yourself Time",
+    message:"Difficult feelings deserve care, not judgment. Take things one step at a time, do something gentle that helps you, and consider speaking with a trusted person about what's happening.",
+    quotes:[
+      ["Cloudy days are part of the sky, not the whole sky.","Original quote"],
+      ["You deserve patience, especially from yourself.","Original quote"],
+      ["A difficult day does not tell your whole story.","Original quote"]
+    ],
+    image:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1100&q=80",
+    alt:"A peaceful lake and mountains beneath a wide sky"
+  },
+  future: {
+    title:"🌟 Take Today as It Comes",
+    message:"You don't need every answer about your future right now. Explore your interests, learn new things, and talk to people you trust when you need guidance.",
+    quotes:[
+      ["You can discover your path one step at a time.","Original quote"],
+      ["Curiosity today can open doors tomorrow.","Original quote"],
+      ["You don't have to know everything to begin learning.","Original quote"]
+    ],
+    image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1100&q=80",
+    alt:"A sunlit landscape opening toward the horizon"
+  }
+};
+
+let lastQuote = -1;
+
+function showInspiration(){
+  const key = document.getElementById("problem").value;
+  const item = inspirations[key];
+
+  let index = Math.floor(Math.random() * item.quotes.length);
+  if(item.quotes.length > 1 && index === lastQuote){
+    index = (index + 1) % item.quotes.length;
+  }
+  lastQuote = index;
+
+  document.getElementById("resultTitle").textContent = item.title;
+  document.getElementById("message").textContent = item.message;
+  document.getElementById("quote").textContent = "“" + item.quotes[index][0] + "”";
+  document.getElementById("author").textContent = "— " + item.quotes[index][1];
+
+  const img = document.getElementById("inspireImage");
+  img.src = item.image;
+  img.alt = item.alt;
+
+  document.getElementById("formPanel").style.display = "none";
+  document.getElementById("result").style.display = "block";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.getElementById("inspireButton").addEventListener("click",showInspiration);
+document.getElementById("againButton").addEventListener("click",showInspiration);
+document.getElementById("backButton").addEventListener("click",()=>{
+  document.getElementById("result").style.display = "none";
+  document.getElementById("formPanel").style.display = "block";
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+</script>
+</body>
+</html>
