@@ -1,214 +1,485 @@
-<!DOCTYPE html>
+chane and add this<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="icon" type="image/png" href="/SwarajyaVerse/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SwarajyaVerse Studio | AI, Games, Books & Learning</title>
-    <meta name="description" content="Explore SwarajyaVerse Studio, a creative digital world featuring AI experiments, games, study resources, quizzes, Maharashtra history, books, and inspiration.">
-    <meta name="robots" content="index, follow">
+<title>SwarajyaVerse Studio | AI, Games, Books & Learning</title>
+<meta name="description" content="Explore SwarajyaVerse Studio, a creative digital world featuring AI experiments, games, study resources, quizzes, Maharashtra history, books, and inspiration.">
 
-    <style>
-        :root {
-            --gold: #ffca70;
-            --text: #ffffff;
-            --panel: rgba(8, 13, 25, 0.75);
-            --border: rgba(255, 202, 112, 0.45);
+<style>
+:root {
+    --gold: #ffca70;
+    --text: #ffffff;
+    --panel: rgba(8, 13, 25, 0.75);
+    --border: rgba(255, 202, 112, 0.45);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    background:
+        linear-gradient(rgba(3, 10, 24, 0.52),
+                        rgba(3, 10, 24, 0.70)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=85")
+        center / cover fixed;
+    transition: background 0.4s, color 0.4s;
+}
+
+body.light {
+    background:
+        linear-gradient(rgba(0, 30, 48, 0.12),
+                        rgba(0, 30, 48, 0.30)),
+        url("https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=2200&q=85")
+        center / cover fixed;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+header {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 18px 6%;
+    background: rgba(5, 9, 20, 0.72);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+}
+
+.brand {
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--gold);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+nav a,
+.theme-button {
+    font-size: 14px;
+    color: white;
+    transition: color 0.25s;
+}
+
+nav a:hover,
+.theme-button:hover {
+    color: var(--gold);
+}
+
+.theme-button {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 9px 13px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.hero {
+    min-height: 84vh;
+    padding: 70px 20px 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.logo {
+    width: 112px;
+    height: 112px;
+    object-fit: contain;
+    margin-bottom: 22px;
+    filter: drop-shadow(0 0 18px rgba(255, 202, 112, 0.5));
+    animation: float 4s ease-in-out infinite;
+}
+
+.kicker {
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    margin-bottom: 16px;
+    animation: reveal 1s both;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 8vw, 86px);
+    line-height: 1.08;
+    letter-spacing: 2px;
+    text-shadow: 0 5px 25px rgba(0,0,0,0.4);
+    animation: reveal 1s 0.15s both;
+}
+
+.hero h1 span {
+    color: var(--gold);
+}
+
+.studio {
+    font-size: clamp(14px, 2.5vw, 22px);
+    letter-spacing: 10px;
+    margin-top: 15px;
+    animation: reveal 1s 0.3s both;
+}
+
+.tagline {
+    min-height: 35px;
+    margin: 28px 0 12px;
+    font-size: clamp(15px, 2.5vw, 21px);
+    color: white;
+}
+
+#typing {
+    border-right: 2px solid var(--gold);
+    padding-right: 5px;
+}
+
+.credit {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #fff0d0;
+}
+
+.explore {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 15px 26px;
+    border-radius: 40px;
+    color: #172033;
+    background: var(--gold);
+    font-weight: bold;
+    box-shadow: 0 0 25px rgba(255, 202, 112, 0.22);
+    transition: transform 0.25s, box-shadow 0.25s;
+    animation: reveal 1s 0.45s both;
+}
+
+.explore:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 35px rgba(255, 202, 112, 0.5);
+}
+
+.about {
+    display: none;
+    max-width: 900px;
+    margin: 30px auto 70px;
+    padding: 0 22px;
+    scroll-margin-top: 30px;
+}
+
+.about.visible {
+    display: block;
+    animation: reveal 0.8s both;
+}
+
+.about-panel {
+    padding: clamp(25px, 5vw, 48px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: var(--panel);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+}
+
+.section-label {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+
+.about h2 {
+    font-size: clamp(32px, 5vw, 48px);
+    margin: 15px 0 20px;
+}
+
+.about p {
+    line-height: 1.9;
+    color: #f5f2ee;
+    margin-top: 12px;
+}
+
+footer {
+    padding: 24px 15px;
+    text-align: center;
+    background: rgba(5, 9, 20, 0.78);
+    border-top: 1px solid var(--border);
+    color: #fff0d0;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+body.light header,
+body.light footer {
+    background: rgba(9, 42, 53, 0.82);
+}
+
+body.light .about-panel {
+    background: rgba(8, 38, 49, 0.80);
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+}
+
+@media (max-width: 650px) {
+    header {
+        justify-content: center;
+        padding: 16px;
+    }
+
+    nav {
+        gap: 15px;
+    }
+
+    .hero {
+        min-height: 78vh;
+        padding-top: 55px;
+    }
+
+    .studio {
+        letter-spacing: 6px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+
+        .about-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ff9d00;
+  display: block;
+  margin: 20px auto;
+  box-shadow: 0 0 25px rgba(255, 157, 0, 0.3);
+}
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a class="brand" href="index.html">SV | SWARAJYAVERSE</a>
+
+    <nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="#about" id="aboutLink">About Me</a>
+        <a href="special-day.html">What's Special Today?</a>
+        <button class="theme-button" id="themeButton"
+                type="button" aria-label="Switch colour theme">
+            ☀ Light Mode
+        </button>
+    </nav>
+</header>
+
+<main>
+    <section class="hero" id="home">
+        <img class="logo" src="logo.png"
+             alt="SwarajyaVerse Studio logo"
+             onerror="this.style.display='none'">
+
+        <p class="kicker">WELCOME TO MY DIGITAL WORLD</p>
+
+        <h1>Swarajya<span>Verse</span></h1>
+
+        <p class="studio">S T U D I O</p>
+
+        <p class="tagline">
+            <span id="typing"></span>
+        </p>
+
+        <p class="credit">
+            Made by Prajwal Meena Rajendra Dhonde<br>
+            From Chikhalgaon, Bhor
+        </p>
+
+        <a href="universe.html" class="explore">
+            Explore Universe ↗
+        </a>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-panel">
+            <span class="section-label">GET TO KNOW ME</span>
+            <h2>About Me</h2>
+
+            <p>
+                Hi! I'm Prajwal, a young creator passionate about
+                technology, design, history, learning and new ideas.
+                SwarajyaVerse Studio is my personal digital space where
+                imagination meets innovation.
+            </p>
+
+            <p>
+                My vision is to bring different interests together in one
+                place: creative AI experiments, games, study resources,
+                quizzes, inspirational ideas and books that I am working
+                on as a young author.
+            </p>
+
+            <p>
+                I am especially interested in Maharashtra's history,
+                culture and heritage. Through my writing, I hope to make
+                history interesting for readers and encourage curiosity,
+                courage, creativity and learning.
+            </p>
+
+            <p>
+                SwarajyaVerse Studio is a growing project. I plan to keep
+                learning, improving its features and turning new ideas
+                into real projects—one step at a time.
+            </p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <strong>SwarajyaVerse Studio</strong><br>
+    Rooted in Heritage. Built for Tomorrow.<br>
+    © <span id="year"></span> Prajwal. A creative project.
+</footer>
+
+<script>
+const body = document.body;
+const themeButton = document.getElementById("themeButton");
+const typing = document.getElementById("typing");
+const about = document.getElementById("about");
+const aboutLink = document.getElementById("aboutLink");
+
+const taglines = [
+    "Where imagination becomes reality.",
+    "My website. My creativity. My world.",
+    "Explore ideas. Create possibilities.",
+    "Discover. Learn. Imagine. Build.",
+    "A young creator's digital universe.",
+    "History, technology and imagination.",
+    "Dream boldly. Create thoughtfully.",
+    "One universe. Infinite possibilities."
+];
+
+let phraseIndex = 0;
+let characterIndex = 0;
+let deleting = false;
+
+function typeEffect() {
+    const phrase = taglines[phraseIndex];
+
+    if (!deleting) {
+        typing.textContent = phrase.slice(0, characterIndex + 1);
+        characterIndex++;
+
+        if (characterIndex >= phrase.length) {
+            deleting = true;
+            setTimeout(typeEffect, 1500);
+            return;
         }
+    } else {
+        typing.textContent = phrase.slice(0, characterIndex - 1);
+        characterIndex--;
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        if (characterIndex <= 0) {
+            deleting = false;
+            phraseIndex = (phraseIndex + 1) % taglines.length;
         }
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    setTimeout(typeEffect, deleting ? 35 : 75);
+}
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            color: var(--text);
-            min-height: 100vh;
-            background:
-                linear-gradient(
-                    rgba(3, 10, 24, 0.52),
-                    rgba(3, 10, 24, 0.70)
-                ),
-                url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=85")
-                center / cover fixed;
-            transition: background 0.4s, color 0.4s;
-        }
+typeEffect();
 
-        body.light {
-            background:
-                linear-gradient(
-                    rgba(0, 30, 48, 0.12),
-                    rgba(0, 30, 48, 0.30)
-                ),
-                url("https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=2200&q=85")
-                center / cover fixed;
-        }
+function updateThemeButton() {
+    themeButton.textContent = body.classList.contains("light")
+        ? "☾ Dark Mode"
+        : "☀ Light Mode";
+}
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
+themeButton.addEventListener("click", function () {
+    body.classList.toggle("light");
 
-        button {
-            font: inherit;
-        }
+    try {
+        localStorage.setItem(
+            "swarajya-theme",
+            body.classList.contains("light") ? "light" : "dark"
+        );
+    } catch (error) {
+        // The theme still works if browser storage is unavailable.
+    }
 
-        header {
-            position: relative;
-            z-index: 5;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            padding: 18px 6%;
-            background: rgba(5, 9, 20, 0.72);
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(12px);
-        }
+    updateThemeButton();
+});
 
-        .brand {
-            font-size: 17px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            color: var(--gold);
-        }
+try {
+    if (localStorage.getItem("swarajya-theme") === "light") {
+        body.classList.add("light");
+    }
+} catch (error) {
+    // Use the default dark theme.
+}
 
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+updateThemeButton();
 
-        nav a,
-        .theme-button {
-            font-size: 14px;
-            color: white;
-            transition: color 0.25s;
-        }
+aboutLink.addEventListener("click", function (event) {
+    event.preventDefault();
+    about.classList.add("visible");
 
-        nav a:hover,
-        .theme-button:hover {
-            color: var(--gold);
-        }
+    about.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+});
 
-        .theme-button {
-            background: transparent;
-            border: 1px solid var(--border);
-            padding: 9px 13px;
-            border-radius: 30px;
-            cursor: pointer;
-        }
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+</script>
 
-        .hero {
-            min-height: 84vh;
-            padding: 70px 20px 55px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .logo {
-            width: 112px;
-            height: 112px;
-            object-fit: contain;
-            margin-bottom: 22px;
-            filter: drop-shadow(0 0 18px rgba(255, 202, 112, 0.5));
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .kicker {
-            color: var(--gold);
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 5px;
-            margin-bottom: 16px;
-            animation: reveal 1s both;
-        }
-
-        .hero h1 {
-            font-size: clamp(38px, 8vw, 86px);
-            line-height: 1.08;
-            letter-spacing: 2px;
-            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
-            animation: reveal 1s 0.15s both;
-        }
-
-        .hero h1 span {
-            color: var(--gold);
-        }
-
-        .studio {
-            font-size: clamp(14px, 2.5vw, 22px);
-            letter-spacing: 10px;
-            margin-top: 15px;
-            animation: reveal 1s 0.3s both;
-        }
-
-        .tagline {
-            min-height: 35px;
-            margin: 28px 0 12px;
-            font-size: clamp(15px, 2.5vw, 21px);
-            color: white;
-        }
-
-        #typing {
-            border-right: 2px solid var(--gold);
-            padding-right: 5px;
-        }
-
-        .credit {
-            margin-top: 10px;
-            font-size: 12px;
-            line-height: 1.8;
-            color: #fff0d0;
-        }
-
-        .explore {
-            display: inline-block;
-            margin-top: 32px;
-            padding: 15px 26px;
-            border-radius: 40px;
-            color: #172033;
-            background: var(--gold);
-            font-weight: bold;
-            box-shadow: 0 0 25px rgba(255, 202, 112, 0.22);
-            transition: transform 0.25s, box-shadow 0.25s;
-            animation: reveal 1s 0.45s both;
-        }
-
-        .explore:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 0 35px rgba(255, 202, 112, 0.5);
-        }
-
-        /* ABOUT ME SECTION */
-
-        .about {
-            display: none;
-            max-width: 900px;
-            margin: 30px auto 70px;
-            padding: 0 22px;
-            scroll-margin-top: 30px;
-        }
-
-        .about.visible {
-            display: block;
-            animation: reveal 0.8s both;
-        }
-
-        .about-panel {
-            padding: clamp(25px, 5vw, 48px);
-            border: 
+</body>
+</html>
