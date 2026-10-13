@@ -1,307 +1,345 @@
-chane and add this<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="icon" type="image/png" href="/SwarajyaVerse/favicon.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SwarajyaVerse Studio | AI, Games, Books & Learning</title>
-<meta name="description" content="Explore SwarajyaVerse Studio, a creative digital world featuring AI experiments, games, study resources, quizzes, Maharashtra history, books, and inspiration.">
+    <title>SwarajyaVerse Studio | AI, Games, Books & Learning</title>
+    <meta name="description" content="Explore SwarajyaVerse Studio, a creative digital world featuring AI experiments, games, study resources, quizzes, Maharashtra history, books, and inspiration.">
+    <meta name="robots" content="index, follow">
 
-<style>
-:root {
-    --gold: #ffca70;
-    --text: #ffffff;
-    --panel: rgba(8, 13, 25, 0.75);
-    --border: rgba(255, 202, 112, 0.45);
-}
+    <style>
+        :root {
+            --gold: #ffca70;
+            --text: #ffffff;
+            --panel: rgba(8, 13, 25, 0.75);
+            --border: rgba(255, 202, 112, 0.45);
+        }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-html {
-    scroll-behavior: smooth;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--text);
-    min-height: 100vh;
-    background:
-        linear-gradient(rgba(3, 10, 24, 0.52),
-                        rgba(3, 10, 24, 0.70)),
-        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=85")
-        center / cover fixed;
-    transition: background 0.4s, color 0.4s;
-}
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            background:
+                linear-gradient(
+                    rgba(3, 10, 24, 0.52),
+                    rgba(3, 10, 24, 0.70)
+                ),
+                url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=85")
+                center / cover fixed;
+            transition: background 0.4s, color 0.4s;
+        }
 
-body.light {
-    background:
-        linear-gradient(rgba(0, 30, 48, 0.12),
-                        rgba(0, 30, 48, 0.30)),
-        url("https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=2200&q=85")
-        center / cover fixed;
-}
+        body.light {
+            background:
+                linear-gradient(
+                    rgba(0, 30, 48, 0.12),
+                    rgba(0, 30, 48, 0.30)
+                ),
+                url("https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=2200&q=85")
+                center / cover fixed;
+        }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-button {
-    font: inherit;
-}
+        button {
+            font: inherit;
+        }
 
-header {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 18px 6%;
-    background: rgba(5, 9, 20, 0.72);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-}
+        header {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 18px 6%;
+            background: rgba(5, 9, 20, 0.72);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+        }
 
-.brand {
-    font-size: 17px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: var(--gold);
-}
+        .brand {
+            font-size: 17px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: var(--gold);
+        }
 
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
 
-nav a,
-.theme-button {
-    font-size: 14px;
-    color: white;
-    transition: color 0.25s;
-}
+        nav a,
+        .theme-button {
+            font-size: 14px;
+            color: white;
+            transition: color 0.25s;
+        }
 
-nav a:hover,
-.theme-button:hover {
-    color: var(--gold);
-}
+        nav a:hover,
+        .theme-button:hover {
+            color: var(--gold);
+        }
 
-.theme-button {
-    background: transparent;
-    border: 1px solid var(--border);
-    padding: 9px 13px;
-    border-radius: 30px;
-    cursor: pointer;
-}
+        .theme-button {
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 9px 13px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
 
-.hero {
-    min-height: 84vh;
-    padding: 70px 20px 55px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
+        .hero {
+            min-height: 84vh;
+            padding: 70px 20px 55px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
 
-.logo {
-    width: 112px;
-    height: 112px;
-    object-fit: contain;
-    margin-bottom: 22px;
-    filter: drop-shadow(0 0 18px rgba(255, 202, 112, 0.5));
-    animation: float 4s ease-in-out infinite;
-}
+        .logo {
+            width: 112px;
+            height: 112px;
+            object-fit: contain;
+            margin-bottom: 22px;
+            filter: drop-shadow(0 0 18px rgba(255, 202, 112, 0.5));
+            animation: float 4s ease-in-out infinite;
+        }
 
-.kicker {
-    color: var(--gold);
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 5px;
-    margin-bottom: 16px;
-    animation: reveal 1s both;
-}
+        .kicker {
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin-bottom: 16px;
+            animation: reveal 1s both;
+        }
 
-.hero h1 {
-    font-size: clamp(38px, 8vw, 86px);
-    line-height: 1.08;
-    letter-spacing: 2px;
-    text-shadow: 0 5px 25px rgba(0,0,0,0.4);
-    animation: reveal 1s 0.15s both;
-}
+        .hero h1 {
+            font-size: clamp(38px, 8vw, 86px);
+            line-height: 1.08;
+            letter-spacing: 2px;
+            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+            animation: reveal 1s 0.15s both;
+        }
 
-.hero h1 span {
-    color: var(--gold);
-}
+        .hero h1 span {
+            color: var(--gold);
+        }
 
-.studio {
-    font-size: clamp(14px, 2.5vw, 22px);
-    letter-spacing: 10px;
-    margin-top: 15px;
-    animation: reveal 1s 0.3s both;
-}
+        .studio {
+            font-size: clamp(14px, 2.5vw, 22px);
+            letter-spacing: 10px;
+            margin-top: 15px;
+            animation: reveal 1s 0.3s both;
+        }
 
-.tagline {
-    min-height: 35px;
-    margin: 28px 0 12px;
-    font-size: clamp(15px, 2.5vw, 21px);
-    color: white;
-}
+        .tagline {
+            min-height: 35px;
+            margin: 28px 0 12px;
+            font-size: clamp(15px, 2.5vw, 21px);
+            color: white;
+        }
 
-#typing {
-    border-right: 2px solid var(--gold);
-    padding-right: 5px;
-}
+        #typing {
+            border-right: 2px solid var(--gold);
+            padding-right: 5px;
+        }
 
-.credit {
-    margin-top: 10px;
-    font-size: 12px;
-    line-height: 1.8;
-    color: #fff0d0;
-}
+        .credit {
+            margin-top: 10px;
+            font-size: 12px;
+            line-height: 1.8;
+            color: #fff0d0;
+        }
 
-.explore {
-    display: inline-block;
-    margin-top: 32px;
-    padding: 15px 26px;
-    border-radius: 40px;
-    color: #172033;
-    background: var(--gold);
-    font-weight: bold;
-    box-shadow: 0 0 25px rgba(255, 202, 112, 0.22);
-    transition: transform 0.25s, box-shadow 0.25s;
-    animation: reveal 1s 0.45s both;
-}
+        .explore {
+            display: inline-block;
+            margin-top: 32px;
+            padding: 15px 26px;
+            border-radius: 40px;
+            color: #172033;
+            background: var(--gold);
+            font-weight: bold;
+            box-shadow: 0 0 25px rgba(255, 202, 112, 0.22);
+            transition: transform 0.25s, box-shadow 0.25s;
+            animation: reveal 1s 0.45s both;
+        }
 
-.explore:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 0 35px rgba(255, 202, 112, 0.5);
-}
+        .explore:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 35px rgba(255, 202, 112, 0.5);
+        }
 
-.about {
-    display: none;
-    max-width: 900px;
-    margin: 30px auto 70px;
-    padding: 0 22px;
-    scroll-margin-top: 30px;
-}
+        /* ABOUT ME SECTION */
 
-.about.visible {
-    display: block;
-    animation: reveal 0.8s both;
-}
+        .about {
+            display: none;
+            max-width: 900px;
+            margin: 30px auto 70px;
+            padding: 0 22px;
+            scroll-margin-top: 30px;
+        }
 
-.about-panel {
-    padding: clamp(25px, 5vw, 48px);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    background: var(--panel);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
-}
+        .about.visible {
+            display: block;
+            animation: reveal 0.8s both;
+        }
 
-.section-label {
-    color: var(--gold);
-    font-size: 12px;
-    letter-spacing: 4px;
-    font-weight: bold;
-}
+        .about-panel {
+            padding: clamp(25px, 5vw, 48px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: var(--panel);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
 
-.about h2 {
-    font-size: clamp(32px, 5vw, 48px);
-    margin: 15px 0 20px;
-}
-
-.about p {
-    line-height: 1.9;
-    color: #f5f2ee;
-    margin-top: 12px;
-}
-
-footer {
-    padding: 24px 15px;
-    text-align: center;
-    background: rgba(5, 9, 20, 0.78);
-    border-top: 1px solid var(--border);
-    color: #fff0d0;
-    font-size: 13px;
-    line-height: 1.8;
-}
-
-body.light header,
-body.light footer {
-    background: rgba(9, 42, 53, 0.82);
-}
-
-body.light .about-panel {
-    background: rgba(8, 38, 49, 0.80);
-}
-
-@keyframes reveal {
-    from {
-        opacity: 0;
-        transform: translateY(24px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-9px); }
-}
-
-@media (max-width: 650px) {
-    header {
-        justify-content: center;
-        padding: 16px;
-    }
-
-    nav {
-        gap: 15px;
-    }
-
-    .hero {
-        min-height: 78vh;
-        padding-top: 55px;
-    }
-
-    .studio {
-        letter-spacing: 6px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
+        /* YOUR PERSONAL PHOTO */
 
         .about-photo {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid #ff9d00;
-  display: block;
-  margin: 20px auto;
-  box-shadow: 0 0 25px rgba(255, 157, 0, 0.3);
-}
-    }
-}
-</style>
+            display: block;
+            width: 180px;
+            height: 180px;
+            max-width: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            margin: 0 auto 18px;
+            box-shadow: 0 0 25px rgba(255, 157, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .about-photo:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 35px rgba(255, 157, 0, 0.5);
+        }
+
+        .photo-caption {
+            color: var(--gold);
+            font-size: 13px;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+
+        .section-label {
+            color: var(--gold);
+            font-size: 12px;
+            letter-spacing: 4px;
+            font-weight: bold;
+        }
+
+        .about h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            margin: 15px 0 20px;
+        }
+
+        .about p {
+            line-height: 1.9;
+            color: #f5f2ee;
+            margin-top: 12px;
+            text-align: left;
+        }
+
+        footer {
+            padding: 24px 15px;
+            text-align: center;
+            background: rgba(5, 9, 20, 0.78);
+            border-top: 1px solid var(--border);
+            color: #fff0d0;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        body.light header,
+        body.light footer {
+            background: rgba(9, 42, 53, 0.82);
+        }
+
+        body.light .about-panel {
+            background: rgba(8, 38, 49, 0.80);
+        }
+
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-9px);
+            }
+        }
+
+        @media (max-width: 650px) {
+            header {
+                justify-content: center;
+                padding: 16px;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            .hero {
+                min-height: 78vh;
+                padding-top: 55px;
+            }
+
+            .studio {
+                letter-spacing: 6px;
+            }
+
+            .about-photo {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -313,8 +351,12 @@ body.light .about-panel {
         <a href="index.html">Home</a>
         <a href="#about" id="aboutLink">About Me</a>
         <a href="special-day.html">What's Special Today?</a>
-        <button class="theme-button" id="themeButton"
-                type="button" aria-label="Switch colour theme">
+
+        <button
+            class="theme-button"
+            id="themeButton"
+            type="button"
+            aria-label="Switch colour theme">
             ☀ Light Mode
         </button>
     </nav>
@@ -322,9 +364,11 @@ body.light .about-panel {
 
 <main>
     <section class="hero" id="home">
-        <img class="logo" src="logo.png"
-             alt="SwarajyaVerse Studio logo"
-             onerror="this.style.display='none'">
+        <img
+            class="logo"
+            src="logo.png"
+            alt="SwarajyaVerse Studio logo"
+            onerror="this.style.display='none'">
 
         <p class="kicker">WELCOME TO MY DIGITAL WORLD</p>
 
@@ -348,8 +392,22 @@ body.light .about-panel {
 
     <section class="about" id="about">
         <div class="about-panel">
+
             <span class="section-label">GET TO KNOW ME</span>
+
             <h2>About Me</h2>
+
+            <!-- PERSONAL PHOTO: keep the filename identical to your upload -->
+            <img
+                class="about-photo"
+                src="/SwarajyaVerse/prajwal.jpg"
+                alt="Prajwal, creator of SwarajyaVerse Studio"
+                loading="lazy"
+                onerror="this.style.display='none'">
+
+            <p class="photo-caption">
+                The creator behind SwarajyaVerse Studio
+            </p>
 
             <p>
                 Hi! I'm Prajwal, a young creator passionate about
@@ -377,6 +435,7 @@ body.light .about-panel {
                 learning, improving its features and turning new ideas
                 into real projects—one step at a time.
             </p>
+
         </div>
     </section>
 </main>
@@ -388,97 +447,109 @@ body.light .about-panel {
 </footer>
 
 <script>
-const body = document.body;
-const themeButton = document.getElementById("themeButton");
-const typing = document.getElementById("typing");
-const about = document.getElementById("about");
-const aboutLink = document.getElementById("aboutLink");
+    const body = document.body;
+    const themeButton = document.getElementById("themeButton");
+    const typing = document.getElementById("typing");
+    const about = document.getElementById("about");
+    const aboutLink = document.getElementById("aboutLink");
 
-const taglines = [
-    "Where imagination becomes reality.",
-    "My website. My creativity. My world.",
-    "Explore ideas. Create possibilities.",
-    "Discover. Learn. Imagine. Build.",
-    "A young creator's digital universe.",
-    "History, technology and imagination.",
-    "Dream boldly. Create thoughtfully.",
-    "One universe. Infinite possibilities."
-];
+    const taglines = [
+        "Where imagination becomes reality.",
+        "My website. My creativity. My world.",
+        "Explore ideas. Create possibilities.",
+        "Discover. Learn. Imagine. Build.",
+        "A young creator's digital universe.",
+        "History, technology and imagination.",
+        "Dream boldly. Create thoughtfully.",
+        "One universe. Infinite possibilities."
+    ];
 
-let phraseIndex = 0;
-let characterIndex = 0;
-let deleting = false;
+    let phraseIndex = 0;
+    let characterIndex = 0;
+    let deleting = false;
+    let typingTimer;
 
-function typeEffect() {
-    const phrase = taglines[phraseIndex];
+    function typeEffect() {
+        const phrase = taglines[phraseIndex];
 
-    if (!deleting) {
-        typing.textContent = phrase.slice(0, characterIndex + 1);
-        characterIndex++;
+        if (!deleting) {
+            typing.textContent =
+                phrase.slice(0, characterIndex + 1);
 
-        if (characterIndex >= phrase.length) {
-            deleting = true;
-            setTimeout(typeEffect, 1500);
-            return;
+            characterIndex++;
+
+            if (characterIndex >= phrase.length) {
+                deleting = true;
+                typingTimer = setTimeout(typeEffect, 1500);
+                return;
+            }
+        } else {
+            typing.textContent =
+                phrase.slice(0, characterIndex - 1);
+
+            characterIndex--;
+
+            if (characterIndex <= 0) {
+                deleting = false;
+                phraseIndex = (phraseIndex + 1) % taglines.length;
+            }
         }
-    } else {
-        typing.textContent = phrase.slice(0, characterIndex - 1);
-        characterIndex--;
 
-        if (characterIndex <= 0) {
-            deleting = false;
-            phraseIndex = (phraseIndex + 1) % taglines.length;
-        }
+        typingTimer = setTimeout(
+            typeEffect,
+            deleting ? 35 : 75
+        );
     }
 
-    setTimeout(typeEffect, deleting ? 35 : 75);
-}
+    typeEffect();
 
-typeEffect();
+    function updateThemeButton() {
+        themeButton.textContent =
+            body.classList.contains("light")
+                ? "☾ Dark Mode"
+                : "☀ Light Mode";
+    }
 
-function updateThemeButton() {
-    themeButton.textContent = body.classList.contains("light")
-        ? "☾ Dark Mode"
-        : "☀ Light Mode";
-}
+    themeButton.addEventListener("click", function () {
+        body.classList.toggle("light");
 
-themeButton.addEventListener("click", function () {
-    body.classList.toggle("light");
+        try {
+            localStorage.setItem(
+                "swarajya-theme",
+                body.classList.contains("light")
+                    ? "light"
+                    : "dark"
+            );
+        } catch (error) {
+            // Theme switching still works without storage.
+        }
+
+        updateThemeButton();
+    });
 
     try {
-        localStorage.setItem(
-            "swarajya-theme",
-            body.classList.contains("light") ? "light" : "dark"
-        );
+        if (localStorage.getItem("swarajya-theme") === "light") {
+            body.classList.add("light");
+        }
     } catch (error) {
-        // The theme still works if browser storage is unavailable.
+        // Use the default dark theme.
     }
 
     updateThemeButton();
-});
 
-try {
-    if (localStorage.getItem("swarajya-theme") === "light") {
-        body.classList.add("light");
-    }
-} catch (error) {
-    // Use the default dark theme.
-}
+    aboutLink.addEventListener("click", function (event) {
+        event.preventDefault();
 
-updateThemeButton();
+        about.classList.add("visible");
 
-aboutLink.addEventListener("click", function (event) {
-    event.preventDefault();
-    about.classList.add("visible");
-
-    about.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+        about.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
     });
-});
 
-document.getElementById("year").textContent =
-    new Date().getFullYear();
+    document.getElementById("year").textContent =
+        new Date().getFullYear();
 </script>
 
 </body>
