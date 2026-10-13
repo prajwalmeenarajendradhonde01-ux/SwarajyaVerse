@@ -266,6 +266,107 @@
             text-align: left;
         }
 
+
+        /* LOGIN, SIGN-UP AND REVIEWS */
+        .feature-section {
+            display: block;
+            max-width: 900px;
+            margin: 30px auto 55px;
+            padding: 0 22px;
+            scroll-margin-top: 24px;
+        }
+        .feature-panel {
+            padding: clamp(22px, 5vw, 42px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: var(--panel);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 50px rgba(0,0,0,.2);
+        }
+        .feature-panel h2 {
+            color: var(--gold);
+            font-size: clamp(27px, 4vw, 38px);
+            margin: 10px 0 12px;
+            text-align: center;
+        }
+        .feature-intro {
+            text-align: center;
+            line-height: 1.7;
+            margin-bottom: 22px;
+            color: #f5f2ee;
+        }
+        .feature-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 18px 0;
+        }
+        .feature-button {
+            border: 1px solid var(--gold);
+            background: var(--gold);
+            color: #172033;
+            padding: 11px 18px;
+            border-radius: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .feature-button.secondary {
+            background: transparent;
+            color: var(--gold);
+        }
+        .feature-form {
+            display: grid;
+            gap: 13px;
+            max-width: 520px;
+            margin: 20px auto 0;
+        }
+        .feature-form label {
+            display: grid;
+            gap: 7px;
+            font-size: 14px;
+        }
+        .feature-form input,
+        .feature-form textarea,
+        .feature-form select {
+            width: 100%;
+            padding: 12px 13px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.08);
+            color: var(--text);
+            font: inherit;
+        }
+        .feature-form select option { color: #172033; }
+        .feature-form textarea { min-height: 110px; resize: vertical; }
+        .feature-message {
+            min-height: 22px;
+            text-align: center;
+            line-height: 1.6;
+            color: var(--gold);
+            overflow-wrap: anywhere;
+        }
+        .review-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .review-card {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            background: rgba(255,255,255,.05);
+            overflow-wrap: anywhere;
+        }
+        .review-stars { color: var(--gold); letter-spacing: 2px; }
+        .review-card p { line-height: 1.65; margin-top: 8px; }
+        .small-note { font-size: 12px; line-height: 1.6; opacity: .85; text-align: center; }
+        .hidden-feature { display: none !important; }
+        body.light .feature-panel { background: rgba(8,38,49,.80); }
+        body.light .feature-form input,
+        body.light .feature-form textarea,
+        body.light .feature-form select { color: #fff; }
+
         footer {
             padding: 24px 15px;
             text-align: center;
@@ -351,6 +452,8 @@
         <a href="index.html">Home</a>
         <a href="#about" id="aboutLink">About Me</a>
         <a href="special-day.html">What's Special Today?</a>
+        <a href="#reviews" id="reviewsNavLink">Reviews</a>
+        <button class="theme-button" id="accountNavButton" type="button">Login / Sign Up</button>
 
         <button
             class="theme-button"
@@ -438,6 +541,89 @@
 
         </div>
     </section>
+
+    <section class="feature-section hidden-feature" id="accountSection" aria-labelledby="accountTitle">
+        <div class="feature-panel">
+            <span class="section-label">YOUR STUDIO ACCOUNT</span>
+            <h2 id="accountTitle">Login to SwarajyaVerse</h2>
+            <p class="feature-intro">This is a browser-only demo account. Do not use a real or reused password.</p>
+
+            <div id="accountWelcome" class="hidden-feature">
+                <p class="feature-intro" id="welcomeText"></p>
+                <div class="feature-actions">
+                    <button class="feature-button" type="button" id="logoutButton">Log Out</button>
+                </div>
+            </div>
+
+            <div id="accountForms">
+                <div class="feature-actions">
+                    <button class="feature-button" type="button" id="showLoginButton">Login</button>
+                    <button class="feature-button secondary" type="button" id="showSignupButton">Sign Up</button>
+                </div>
+
+                <form class="feature-form" id="loginForm">
+                    <label>Email
+                        <input type="email" id="loginEmail" autocomplete="email" required>
+                    </label>
+                    <label>Demo password
+                        <input type="password" id="loginPassword" autocomplete="current-password" minlength="4" required>
+                    </label>
+                    <button class="feature-button" type="submit">Login</button>
+                    <p class="small-note">Demo only: your account is stored in this browser, not on a secure server.</p>
+                </form>
+
+                <form class="feature-form hidden-feature" id="signupForm">
+                    <label>Display name
+                        <input type="text" id="signupName" maxlength="40" autocomplete="nickname" required>
+                    </label>
+                    <label>Email
+                        <input type="email" id="signupEmail" autocomplete="email" required>
+                    </label>
+                    <label>Create a demo password
+                        <input type="password" id="signupPassword" minlength="4" autocomplete="new-password" required>
+                    </label>
+                    <button class="feature-button" type="submit">Create Demo Account</button>
+                    <p class="small-note">Use a made-up password for this demo. Never enter a real password.</p>
+                </form>
+                <p class="feature-message" id="accountMessage" role="status" aria-live="polite"></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-section" id="reviews" aria-labelledby="reviewsTitle">
+        <div class="feature-panel">
+            <span class="section-label">HELP US IMPROVE</span>
+            <h2 id="reviewsTitle">Review SwarajyaVerse Studio</h2>
+            <p class="feature-intro">Enjoying the studio? Leave a star rating and tell us what you think.</p>
+
+            <form class="feature-form" id="reviewForm">
+                <label>Your name
+                    <input type="text" id="reviewName" maxlength="40" placeholder="Enter a display name" required>
+                </label>
+                <label>Star rating
+                    <select id="reviewRating" required>
+                        <option value="5">★★★★★ — Excellent</option>
+                        <option value="4">★★★★☆ — Very good</option>
+                        <option value="3">★★★☆☆ — Good</option>
+                        <option value="2">★★☆☆☆ — Needs improvement</option>
+                        <option value="1">★☆☆☆☆ — Not great</option>
+                    </select>
+                </label>
+                <label>Your review
+                    <textarea id="reviewText" maxlength="500" placeholder="What do you like? What could be improved?" required></textarea>
+                </label>
+                <button class="feature-button" type="submit">Submit Review</button>
+                <p class="small-note">Demo notice: reviews are saved only in this browser and are not visible to other visitors.</p>
+                <p class="feature-message" id="reviewMessage" role="status" aria-live="polite"></p>
+            </form>
+
+            <h2 style="font-size:24px;margin-top:32px;">Visitor Reviews</h2>
+            <div class="review-list" id="reviewList" aria-live="polite">
+                <p class="feature-intro">No reviews yet. Be the first to share feedback!</p>
+            </div>
+        </div>
+    </section>
+
 </main>
 
 <footer>
@@ -550,6 +736,161 @@
 
     document.getElementById("year").textContent =
         new Date().getFullYear();
+
+
+    // Browser-only demo login. Do not use real passwords or sensitive information.
+    const accountSection = document.getElementById("accountSection");
+    const accountNavButton = document.getElementById("accountNavButton");
+    const accountForms = document.getElementById("accountForms");
+    const accountWelcome = document.getElementById("accountWelcome");
+    const accountMessage = document.getElementById("accountMessage");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+
+    function readStored(key, fallback) {
+        try {
+            const value = localStorage.getItem(key);
+            return value ? JSON.parse(value) : fallback;
+        } catch (error) {
+            return fallback;
+        }
+    }
+    function saveStored(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+    function getDemoAccounts() {
+        return readStored("sv-demo-accounts", []);
+    }
+    function currentDemoUser() {
+        return readStored("sv-demo-current-user", null);
+    }
+    function renderAccount() {
+        const user = currentDemoUser();
+        accountNavButton.textContent = user ? "My Account" : "Login / Sign Up";
+        if (user) {
+            accountForms.classList.add("hidden-feature");
+            accountWelcome.classList.remove("hidden-feature");
+            document.getElementById("welcomeText").textContent = "Welcome, " + user.name + "! You are using the local demo account.";
+        } else {
+            accountForms.classList.remove("hidden-feature");
+            accountWelcome.classList.add("hidden-feature");
+        }
+    }
+    function openAccount() {
+        accountSection.classList.remove("hidden-feature");
+        accountSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        renderAccount();
+    }
+    accountNavButton.addEventListener("click", openAccount);
+    document.getElementById("showLoginButton").addEventListener("click", function () {
+        loginForm.classList.remove("hidden-feature");
+        signupForm.classList.add("hidden-feature");
+        accountMessage.textContent = "";
+    });
+    document.getElementById("showSignupButton").addEventListener("click", function () {
+        signupForm.classList.remove("hidden-feature");
+        loginForm.classList.add("hidden-feature");
+        accountMessage.textContent = "";
+    });
+    signupForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const name = document.getElementById("signupName").value.trim();
+        const email = document.getElementById("signupEmail").value.trim().toLowerCase();
+        const password = document.getElementById("signupPassword").value;
+        const accounts = getDemoAccounts();
+        if (accounts.some(account => account.email === email)) {
+            accountMessage.textContent = "An account with that email already exists in this browser. Please log in.";
+            return;
+        }
+        accounts.push({ name, email, password });
+        if (!saveStored("sv-demo-accounts", accounts)) {
+            accountMessage.textContent = "Browser storage is unavailable. Please check your browser settings.";
+            return;
+        }
+        saveStored("sv-demo-current-user", { name, email });
+        signupForm.reset();
+        accountMessage.textContent = "Demo account created!";
+        renderAccount();
+    });
+    loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+        const password = document.getElementById("loginPassword").value;
+        const account = getDemoAccounts().find(item => item.email === email && item.password === password);
+        if (!account) {
+            accountMessage.textContent = "Email or demo password doesn't match an account in this browser.";
+            return;
+        }
+        saveStored("sv-demo-current-user", { name: account.name, email: account.email });
+        loginForm.reset();
+        accountMessage.textContent = "Login successful!";
+        renderAccount();
+    });
+    document.getElementById("logoutButton").addEventListener("click", function () {
+        try { localStorage.removeItem("sv-demo-current-user"); } catch (error) {}
+        accountMessage.textContent = "You are logged out.";
+        renderAccount();
+    });
+    renderAccount();
+
+    // Browser-only reviews; these are not shared with other visitors.
+    const reviewForm = document.getElementById("reviewForm");
+    const reviewList = document.getElementById("reviewList");
+    const reviewMessage = document.getElementById("reviewMessage");
+    function renderReviews() {
+        const reviews = readStored("sv-demo-reviews", []);
+        reviewList.replaceChildren();
+        if (!reviews.length) {
+            const empty = document.createElement("p");
+            empty.className = "feature-intro";
+            empty.textContent = "No reviews yet. Be the first to share feedback!";
+            reviewList.appendChild(empty);
+            return;
+        }
+        reviews.slice().reverse().forEach(function (review) {
+            const card = document.createElement("article");
+            card.className = "review-card";
+            const title = document.createElement("strong");
+            title.textContent = review.name;
+            const stars = document.createElement("div");
+            stars.className = "review-stars";
+            stars.textContent = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+            stars.setAttribute("aria-label", review.rating + " out of 5 stars");
+            const paragraph = document.createElement("p");
+            paragraph.textContent = review.text;
+            const date = document.createElement("p");
+            date.className = "small-note";
+            date.textContent = review.date;
+            card.append(title, stars, paragraph, date);
+            reviewList.appendChild(card);
+        });
+    }
+    reviewForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const name = document.getElementById("reviewName").value.trim();
+        const rating = Number(document.getElementById("reviewRating").value);
+        const text = document.getElementById("reviewText").value.trim();
+        if (!name || !text || rating < 1 || rating > 5) {
+            reviewMessage.textContent = "Please enter your name, a rating, and a review.";
+            return;
+        }
+        const reviews = readStored("sv-demo-reviews", []);
+        reviews.push({ name, rating, text, date: new Date().toLocaleDateString() });
+        if (!saveStored("sv-demo-reviews", reviews)) {
+            reviewMessage.textContent = "Could not save the review in this browser.";
+            return;
+        }
+        reviewForm.reset();
+        reviewMessage.textContent = "Thank you! Your review was saved in this browser.";
+        renderReviews();
+    });
+    renderReviews();
+
 </script>
 
 </body>
